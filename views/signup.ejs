@@ -1,0 +1,9 @@
+<% if (error) { %>
+<p><%- error %></p>
+<% } %>
+<form action="/signup" method="post">
+  <input type="text" name="username" placeholder="Username" />
+  <input type="email" name="email" placeholder="Email" />
+  <input type="password" name="password" placeholder="Password" />
+  <button type="submit">Submit</button>
+</form>
