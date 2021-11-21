@@ -1,6 +1,6 @@
 const authController = require("./authController");
 
-exports.getSignup = function (req, res) {
+exports.getRegister = function (req, res) {
   if (req.isAuthenticated()) {
     res.redirect("/");
     return;
@@ -8,14 +8,14 @@ exports.getSignup = function (req, res) {
 
   const errorFlash = req.flash("error");
 
-  res.render("signup", {
+  res.render("register", {
     title: "Fid786 | Sign Up",
     styleFile: undefined,
     error: errorFlash.length > 0 ? errorFlash[0] : undefined,
   });
 };
 
-exports.postSignup = async function (req, res, next) {
+exports.postRegister = async function (req, res, next) {
   try {
     if (req.isAuthenticated()) {
       res.redirect("/");

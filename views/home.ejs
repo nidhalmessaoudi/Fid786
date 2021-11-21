@@ -1,7 +1,13 @@
-<%- include ("includes/head") %> <% if (user) { %>
-<h2><%- user.email %></h2>
-<% } else { %>
-<h2>Not signed in!</h2>
-<% } %>
-<a href="/login">Login</a>
-<a href="/signup">Sign Up</a>
+<!DOCTYPE html>
+<html lang="fr">
+  <%- include ("includes/head") %>
+  <body class="light-color">
+    <%- include ("includes/navbar") %> <% if (user) { %>
+    <h2><%- user.email %></h2>
+    <% } else { %>
+    <h2>Not signed in!</h2>
+    <% } %>
+    <a href="/login">Login</a>
+    <a href="/signup">Sign Up</a>
+  </body>
+</html>

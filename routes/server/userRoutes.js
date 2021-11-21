@@ -3,9 +3,9 @@ const router = require("express").Router();
 const userController = require("../../controllers/userController");
 
 router
-  .route("/signup")
-  .get(userController.getSignup)
-  .post(userController.postSignup);
+  .route("/register")
+  .get(userController.getRegister)
+  .post(userController.postRegister);
 
 router
   .route("/login")

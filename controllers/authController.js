@@ -13,6 +13,17 @@ exports.setupAuth = function (passport) {
 
 exports.checkIfAuthenticated = connectEnsureLogin.ensureLoggedIn("/login");
 
+exports.apiCheckIfAuthenticated = function (req, res, next) {
+  if (req.isAuthenticated()) {
+    req.body.owner = req.user._id;
+    return next();
+  }
+  res.status(401).json({
+    status: "fail",
+    message: "Unauthorized action",
+  });
+};
+
 exports.register = async function (credentials) {
   try {
     const { username, email, password } = credentials;

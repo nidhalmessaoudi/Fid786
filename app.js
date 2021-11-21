@@ -12,9 +12,15 @@ const hpp = require("hpp");
 
 const { setupAuth } = require("./controllers/authController");
 
-// ROUTES
+// DYNAMIC PAGES ROUTES
 const homeRoutes = require("./routes/server/homeRoutes");
 const userRoutes = require("./routes/server/userRoutes");
+
+// API ROUTES
+const storeRoutes = require("./routes/api/storeRoutes");
+const productRoutes = require("./routes/api/productRoutes");
+const orderRoutes = require("./routes/api/orderRoutes");
+const rewardRoutes = require("./routes/api/rewardRoutes");
 
 const app = express();
 
@@ -58,12 +64,18 @@ app.use(xss());
 
 app.use(hpp());
 
-// Routes Usage
+// DYNAMIC PAGES
 app.use(homeRoutes);
 app.use(userRoutes);
 
-app.get("*", function (req, res) {
-  res.send("Hello World");
+// API
+app.use("/api/v1/stores", storeRoutes);
+app.use("/api/v1/products", productRoutes);
+app.use("/api/v1/orders", orderRoutes);
+app.use("/api/v1/rewards", rewardRoutes);
+
+app.use(function (req, res) {
+  res.status(404).send("Not Found");
 });
 
 module.exports = app;
