@@ -9,6 +9,12 @@ module.exports = (env) => {
       filename: "bundle.js",
       path: path.resolve(__dirname, "public/js"),
     },
+    resolve: {
+      alias: {
+        components: path.resolve(__dirname, "client/components"),
+      },
+      extensions: [".ts"],
+    },
     module: {
       rules: [
         {

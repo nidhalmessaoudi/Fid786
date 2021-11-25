@@ -1,1 +1,3 @@
-console.log("Hello from the other side!");
+import Main from "./Main";
+
+window.addEventListener("load", () => Main.main());

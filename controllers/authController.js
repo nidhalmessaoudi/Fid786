@@ -53,6 +53,6 @@ exports.register = async function (credentials) {
 
 exports.postLogin = passport.authenticate("local", {
   failureRedirect: "/login",
-  successRedirect: "/",
+  successReturnToOrRedirect: "/",
   failureFlash: true,
 });

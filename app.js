@@ -15,6 +15,7 @@ const { setupAuth } = require("./controllers/authController");
 // DYNAMIC PAGES ROUTES
 const homeRoutes = require("./routes/server/homeRoutes");
 const userRoutes = require("./routes/server/userRoutes");
+const dashboardRoutes = require("./routes/server/dashboardRoutes");
 
 // API ROUTES
 const storeRoutes = require("./routes/api/storeRoutes");
@@ -67,6 +68,7 @@ app.use(hpp());
 // DYNAMIC PAGES
 app.use(homeRoutes);
 app.use(userRoutes);
+app.use(dashboardRoutes);
 
 // API
 app.use("/api/v1/stores", storeRoutes);

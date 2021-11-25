@@ -1,0 +1,47 @@
+<%- include ("includes/head") %>
+<body class="dashboard">
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <h2><a href="/dashboard">Fid786 Dashboard</a></h2>
+        </div>
+        <div class="sidebar-items">
+            <div class="sidebar-item">
+                <span class="sidebar-item__icon"><i class="bi bi-ui-radios-grid"></i></span>
+                <span class="sidebar-item__text">Home</span>
+            </div>
+            <div class="sidebar-item sidebar-item__active">
+                <span class="sidebar-item__icon"><i class="bi bi-shop"></i></span>
+                <span class="sidebar-item__text">Manage Stores</span>
+            </div>
+            <div class="sidebar-item">
+                <span class="sidebar-item__icon"><i class="bi bi-basket"></i></span>
+                <span class="sidebar-item__text">Manage Products</span>
+            </div>
+            <div class="sidebar-item">
+                <span class="sidebar-item__icon"><i class="bi bi-award"></i></span>
+                <span class="sidebar-item__text">Manage Rewards</span>
+            </div>
+            <div class="sidebar-item">
+                <span class="sidebar-item__icon"><i class="bi bi-bag-check"></i></span>
+                <span class="sidebar-item__text">Manage Orders</span>
+            </div>
+            <div class="sidebar-item">
+                <span class="sidebar-item__icon"><i class="bi bi-box-arrow-up-left"></i></span>
+                <span class="sidebar-item__text">Visit Homepage</span>
+            </div>
+        </div>
+    </div>
+    <div class="dashboard-main">
+        <div class="user-actions">
+            <span class="dropdown-toggle" id="dropdownToggle"><span class="dropdown-toggle__text">test</span><span class="dropdown-toggle__icon"><i class="bi bi-caret-down-fill"></i></span></span>
+            <template id="userDropdownTemplate">
+                <div class="dropdown" id="userDropdown">
+                    <a href="#"><div class="dropdown-item" >Dashboard</div></a>
+                    <a href="#"><div class="dropdown-item" >My Orders</div></a>
+                    <a href="#"><div class="dropdown-item" >Log Out</div></a>
+                </div>
+            </template>
+        </div>
+    </div>
+</body>
+</html>
