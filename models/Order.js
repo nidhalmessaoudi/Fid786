@@ -21,6 +21,16 @@ const orderSchema = new mongoose.Schema(
       type: Number,
       default: 1,
     },
+    buyer: {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+      required: [true, "An order must have a buyer"],
+    },
+    seller: {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+      required: [true, "An order must have a seller"],
+    },
   },
   {
     timestamps: true,
@@ -30,7 +40,7 @@ const orderSchema = new mongoose.Schema(
 );
 
 orderSchema.pre(/^find/, function (next) {
-  this.populate("product");
+  this.populate("product buyer seller");
   next();
 });
 

@@ -12,6 +12,7 @@
   background-color: #ffffff;
   box-shadow: 0.5rem 0.5rem 1rem rgb(0 0 0 / 5%),
     inset 0 -1px 0 rgb(0 0 0 / 15%);
+  overflow-y: auto;
 }
 
 .sidebar-brand {
@@ -24,6 +25,7 @@
   padding: 1rem 1.5rem;
   transition: all 250ms;
   cursor: pointer;
+  user-select: none;
 }
 
 .sidebar-item:hover {
@@ -43,16 +45,18 @@
 /* DASHBOARD MAIN */
 .dashboard-main {
   margin-left: 20%;
-  padding: 2rem 4rem 2rem 2rem;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .user-actions {
-  float: right;
-  display: flex;
+  align-self: flex-end;
   flex-direction: column;
   align-items: flex-end;
   padding: 0 2rem;
   position: relative;
+  margin-bottom: 2rem;
 }
 
 .dropdown-toggle {
@@ -86,7 +90,11 @@
   margin-top: 5px;
   position: absolute;
   top: 1.3rem;
+  right: 0;
   z-index: 444;
+  box-shadow: 0px -2px 46px -23px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0px -2px 46px -23px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px -2px 46px -23px rgba(0, 0, 0, 0.75);
   transition: all;
 }
 
@@ -96,4 +104,45 @@
 
 .dropdown-item:hover {
   background-color: rgb(0, 0, 0, 0.05);
+}
+
+.loading-spinner__dashboard {
+  margin-top: 15%;
+}
+
+.dashboard-section {
+  padding-right: 2rem;
+}
+
+.dashboard-section__top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.dashboard-section__title {
+  font-size: 2rem;
+}
+
+.dashboard-section__overview {
+  margin: 0.5rem 0 2rem 0;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.dashboard-section__cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.dashboard-section__card {
+  width: 20rem;
+  height: 16rem;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
 }

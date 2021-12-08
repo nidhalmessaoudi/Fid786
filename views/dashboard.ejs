@@ -4,28 +4,28 @@
         <div class="sidebar-brand">
             <h2><a href="/dashboard">Fid786 Dashboard</a></h2>
         </div>
-        <div class="sidebar-items">
-            <div class="sidebar-item">
+        <div class="sidebar-items" id="sidebarItems">
+            <div class="sidebar-item" data-section="HOME">
                 <span class="sidebar-item__icon"><i class="bi bi-ui-radios-grid"></i></span>
                 <span class="sidebar-item__text">Home</span>
             </div>
-            <div class="sidebar-item sidebar-item__active">
+            <div class="sidebar-item sidebar-item__active" data-section="STORE">
                 <span class="sidebar-item__icon"><i class="bi bi-shop"></i></span>
                 <span class="sidebar-item__text">Manage Stores</span>
             </div>
-            <div class="sidebar-item">
+            <div class="sidebar-item" data-section="PRODUCT">
                 <span class="sidebar-item__icon"><i class="bi bi-basket"></i></span>
                 <span class="sidebar-item__text">Manage Products</span>
             </div>
-            <div class="sidebar-item">
+            <div class="sidebar-item" data-section="REWARD">
                 <span class="sidebar-item__icon"><i class="bi bi-award"></i></span>
                 <span class="sidebar-item__text">Manage Rewards</span>
             </div>
-            <div class="sidebar-item">
+            <div class="sidebar-item" data-section="ORDER">
                 <span class="sidebar-item__icon"><i class="bi bi-bag-check"></i></span>
                 <span class="sidebar-item__text">Manage Orders</span>
             </div>
-            <div class="sidebar-item">
+            <div class="sidebar-item" data-section="NULL">
                 <span class="sidebar-item__icon"><i class="bi bi-box-arrow-up-left"></i></span>
                 <span class="sidebar-item__text">Visit Homepage</span>
             </div>
@@ -42,6 +42,29 @@
                 </div>
             </template>
         </div>
+        <div id="dashboardContent"></div>
+        <!-- <div class="loading-spinner__dashboard"><div class="loading-spinner"></div></div> -->
+        <!-- <section class="dashboard-section" id="stores">
+            <div class="dashboard-section__top">
+                <h2 class="dashboard-section__title">Manage Stores</h2>
+                <button class="btn btn-primary" id="newStore">New</button>
+            </div>
+            <div class="dashboard-section__overview"><em>(Total: 12)</em></div>
+            <div class="dashboard-section__cards">
+                <div class="dashboard-section__card">
+                    Test1
+                </div>
+                <div class="dashboard-section__card">
+                    Test2
+                </div>
+                <div class="dashboard-section__card">
+                    Test3
+                </div>
+                <div class="dashboard-section__card">
+                    Test4
+                </div>
+            </div>
+        </section> -->
     </div>
 </body>
 </html>

@@ -30,6 +30,11 @@ const productSchema = new mongoose.Schema(
       ref: "Store",
       required: true,
     },
+    owner: {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   {
     timestamps: true,
@@ -39,7 +44,11 @@ const productSchema = new mongoose.Schema(
 );
 
 productSchema.pre("findOne", function (next) {
-  this.populate("store");
+  this.populate({
+    path: "owner",
+    select: "username",
+  }).populate("store");
+
   next();
 });
 
