@@ -5,17 +5,23 @@ import TypeSection from "../types/Section";
 
 export default class Section {
   private sectionContainer: HTMLDivElement;
+  private loadingSpinner = `
+    <div class="loading-spinner__dashboard"><div class="loading-spinner"></div></div>
+  `;
 
-  constructor(private type: TypeSection, markup: string) {
+  constructor(private type: TypeSection) {
     this.sectionContainer = document.getElementById(
       "dashboardContent"
     ) as HTMLDivElement;
+    this.sectionContainer.innerHTML = this.loadingSpinner;
+  }
 
+  protected render(markup: string) {
     this.sectionContainer.innerHTML = markup;
 
-    if (type !== "HOME" && type !== "ORDER") {
+    if (this.type !== "HOME" && this.type !== "ORDER") {
       document
-        .getElementById(`new${type}`)
+        .getElementById(`new${this.type}`)
         ?.addEventListener("click", this.renderModalHandler.bind(this));
     }
   }

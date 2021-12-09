@@ -8,8 +8,18 @@
       <p><%- error %></p>
       <% } %>
       <form action="/login" method="post">
-        <input type="text" name="username" placeholder="Username" />
-        <input type="password" name="password" placeholder="Password" />
+        <input
+          type="text"
+          name="username"
+          value="test"
+          placeholder="Username"
+        />
+        <input
+          type="password"
+          name="password"
+          value="hello@1234"
+          placeholder="Password"
+        />
         <button type="submit">Submit</button>
       </form>
     </div>

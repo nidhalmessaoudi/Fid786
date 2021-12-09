@@ -2,8 +2,9 @@ import Section from "./Section";
 
 export default class OrderSection extends Section {
   constructor() {
-    super(
-      "ORDER",
+    super("ORDER");
+
+    this.render(
       `
         <section class="dashboard-section" id="orders">
             <div class="dashboard-section__top">

@@ -2,7 +2,11 @@ const mongoose = require("mongoose");
 
 exports.getAll = async function (req, res, model) {
   try {
-    const options = { page: req.query.p || 1, limit: 10 };
+    const options = {
+      page: req.query.p || 1,
+      limit: 10,
+      sort: { createdAt: -1 },
+    };
 
     const queries = req.query;
     delete queries.p;

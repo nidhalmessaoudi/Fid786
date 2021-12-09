@@ -139,10 +139,83 @@
 .dashboard-section__card {
   width: 20rem;
   height: 16rem;
-  padding: 2rem;
-  display: flex;
-  justify-content: center;
+  padding: 1.5rem;
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0.1);
   margin-bottom: 1.5rem;
+  transition: all 300ms;
+}
+
+/* HOME CARD */
+.home-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+}
+
+.dashboard-section__card:hover {
+  box-shadow: 0px -2px 46px -32px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0px -2px 46px -32px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px -2px 46px -32px rgba(0, 0, 0, 0.75);
+}
+
+.card-red {
+  background: linear-gradient(to right bottom, #ff5c58, #fe8f8f);
+}
+
+.card-blue {
+  background: linear-gradient(to right bottom, #506d84, #889eaf);
+}
+
+.card-yellow {
+  background: linear-gradient(to right bottom, #ecac5d, #ffe699);
+}
+
+.home-card__content {
+  display: block;
+  font-size: 7rem;
+}
+
+/* STORE CARD */
+.store-card__top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 1.3rem;
+}
+
+.store-card__title {
+  display: block;
+  color: var(--color-primary);
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.store-card__location,
+.store-card__date {
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+.store-card__actions {
+  margin-left: 0.7rem;
+}
+
+.store-card__logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.store-card__img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0px -2px 46px -32px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0px -2px 46px -32px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px -2px 46px -32px rgba(0, 0, 0, 0.75);
 }

@@ -1,32 +1,69 @@
+import axios from "axios";
+
 import Section from "./Section";
+import Store from "../types/Store";
+import formatDate from "../helpers/formatDate";
 
 export default class StoreSection extends Section {
   constructor() {
-    super(
-      "STORE",
-      `
-        <section class="dashboard-section" id="stores">
-            <div class="dashboard-section__top">
-                <h2 class="dashboard-section__title">Manage Stores</h2>
-                <button class="btn btn-primary" id="newSTORE">New Store</button>
+    super("STORE");
+
+    axios({
+      url: "/api/v1/stores",
+      method: "GET",
+    })
+      .then((res) => {
+        console.log(res);
+
+        const data = res.data.data as [Store];
+        this.render(
+          `
+            <section class="dashboard-section" id="stores">
+                <div class="dashboard-section__top">
+                    <h2 class="dashboard-section__title">Manage Stores</h2>
+                    <button class="btn btn-primary" id="newSTORE">New Store</button>
+                </div>
+                <div class="dashboard-section__overview"><em>(Total: ${
+                  data.length
+                })</em></div>
+                <div class="dashboard-section__cards">
+                    ${this.renderStore(data)}
+                </div>
+            </section>
+          `
+        );
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  private renderStore(data: [Store]) {
+    const stores = data.map((store) => {
+      const date = formatDate(store.createdAt);
+
+      return `
+            <div class="dashboard-section__card store-card">
+                <div class="store-card__top">
+                    <div class="store-card__info">
+                        <span class="store-card__title">${store.name}</span>
+                        <span class="store-card__location">${store.location}</span>
+                        ·
+                        <span class="store-card__date">${date}</span>
+                    </div>
+                    <div class="store-card__actions">
+                        <button class="btn btn-primary">Actions</button>
+                    </div>
+                </div>
+                <a href="/${store.subUrl}">
+                    <div class="store-card__logo">
+                        <img class="store-card__img" src="${store.logo}">
+                    </div>
+                </a>
             </div>
-            <div class="dashboard-section__overview"><em>(Total: 12)</em></div>
-            <div class="dashboard-section__cards">
-                <div class="dashboard-section__card">
-                    Test1
-                </div>
-                <div class="dashboard-section__card">
-                    Test2
-                </div>
-                <div class="dashboard-section__card">
-                    Test3
-                </div>
-                <div class="dashboard-section__card">
-                    Test4
-                </div>
-            </div>
-        </section>
-    `
-    );
+        `;
+    });
+
+    return stores.join("");
   }
 }
