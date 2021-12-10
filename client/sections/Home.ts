@@ -11,7 +11,6 @@ export default class HomeSection extends Section {
       method: "GET",
     })
       .then((res) => {
-        console.log(res);
         const data = res.data.data;
         this.render(
           `

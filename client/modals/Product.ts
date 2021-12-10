@@ -8,11 +8,11 @@ export default class ProductModal extends Modal {
   private photoNumber = 1;
 
   constructor() {
-    super(
-      "New Product",
-      `
+    super("New Product");
+    this.renderForm(`
         <form class="modal-form">
             <div class="form-control">
+              <label>Store</label>
                 <select id="storeSelect" name="store">
                     <option data-id="619a64b60b0468ff01198150" selected>test1</option>
                     <option data-id="619a64b60b0468ff01198150">test2</option>
@@ -51,8 +51,7 @@ export default class ProductModal extends Modal {
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
-    `
-    );
+    `);
     this.form = document.querySelector(".modal-form") as HTMLFormElement;
     this.select = document.getElementById("storeSelect") as HTMLSelectElement;
     this.photoInputs = document.getElementById("photoInputs") as HTMLDivElement;

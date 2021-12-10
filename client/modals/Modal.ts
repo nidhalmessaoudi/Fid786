@@ -1,16 +1,19 @@
 export default class Modal {
   private overlayMarkup = `<div class="overlay"></div>`;
   private modalMarkup = `
-        <div class="modal-container">
-            <div class="modal">
-                <div class="modal-top">
-                    <h2 class="modal-brand"></h2>
-                    <div class="modal-close"><i class="bi bi-x"></i></div>
-                </div>
-                <div class="modal-content"></div>
+    <div class="modal-container">
+        <div class="modal">
+            <div class="modal-top">
+                <h2 class="modal-brand"></h2>
+                <div class="modal-close"><i class="bi bi-x"></i></div>
             </div>
+            <div class="modal-content"></div>
         </div>
-    `;
+    </div>
+  `;
+  private loadingSpinner = `
+    <div class="loading-spinner__dashboard"><div class="loading-spinner"></div></div>
+  `;
 
   private overlay: HTMLElement;
   private modal: HTMLElement;
@@ -20,7 +23,7 @@ export default class Modal {
   protected form?: HTMLFormElement;
   protected renderedError?: HTMLElement;
 
-  constructor(title: string, formMarkup: string) {
+  constructor(title: string) {
     document.body.insertAdjacentHTML("afterbegin", this.overlayMarkup);
     document.body.insertAdjacentHTML("afterbegin", this.modalMarkup);
 
@@ -33,7 +36,7 @@ export default class Modal {
     ) as HTMLElement;
 
     this.modalTitle.textContent = title;
-    this.ModalFormContainer.insertAdjacentHTML("afterbegin", formMarkup);
+    this.ModalFormContainer.innerHTML = this.loadingSpinner;
 
     this.modalClose.addEventListener("click", this.closeHandler.bind(this));
     this.overlay.addEventListener("click", this.closeHandler.bind(this));
@@ -47,6 +50,10 @@ export default class Modal {
       e.preventDefault();
       this.closeHandler();
     }
+  }
+
+  protected renderForm(formMarkup: string) {
+    this.ModalFormContainer.innerHTML = formMarkup;
   }
 
   protected closeHandler() {
