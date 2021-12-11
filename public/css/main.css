@@ -175,6 +175,13 @@ a:visited {
   margin: 0.5rem 0;
 }
 
+.form-control input[type="radio"],
+.form-control .radio-label {
+  display: inline;
+  font-size: 0.8rem;
+  width: auto;
+}
+
 .form-control input,
 .form-control textarea,
 .form-control select {

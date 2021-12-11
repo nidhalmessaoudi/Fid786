@@ -6,20 +6,13 @@ import Modal from "./Modal";
 import Store from "../types/Store";
 
 export default class StoreModal extends Modal {
-  private activeTimer = 0;
   constructor(storeId?: string) {
-    super("New Store");
+    super("New Store", storeId ? "EDITABLE" : "CREATABLE");
 
     this.render(storeId).then(() => {
       this.form = document.querySelector(".modal-form") as HTMLFormElement;
 
       this.form.addEventListener("submit", this.submitHandler.bind(this));
-
-      if (storeId) {
-        document
-          .getElementById("storeDelete")
-          ?.addEventListener("click", this.deleteHandler.bind(this));
-      }
     });
   }
 
@@ -33,7 +26,7 @@ export default class StoreModal extends Modal {
       if (storeId) {
         buttons = `
         <button type="submit" class="btn btn-primary">Edit</button>
-        <button type="button" id="storeDelete" class="btn btn-danger">Delete</button>
+        <button type="button" id="deleteDoc" class="btn btn-danger">Delete</button>
       `;
         const { data } = await axios({
           url: `/api/v1/stores/${storeId}`,
@@ -132,41 +125,7 @@ export default class StoreModal extends Modal {
     }
   }
 
-  private async deleteHandler(e: Event) {
-    try {
-      const target = e.target as HTMLButtonElement;
-
-      if (this.activeTimer) {
-        clearInterval(this.activeTimer);
-        target.textContent = "Delete";
-        target.style.opacity = "1";
-        this.activeTimer = 0;
-        return;
-      }
-
-      let timer = 3;
-      target.textContent = `Undo... ${timer}`;
-      target.style.opacity = "0.7";
-      this.activeTimer = window.setInterval(async () => {
-        console.log("hello");
-        if (timer !== 0) {
-          timer--;
-          target.textContent = `Undo... ${timer}`;
-          return;
-        }
-
-        target.textContent = "Deleting";
-        target.disabled = true;
-        await this.deleteStore();
-        this.closeHandler();
-        clearInterval(this.activeTimer);
-      }, 1000);
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  private async deleteStore() {
+  protected override async deleteDoc() {
     await axios({
       url: `/api/v1/stores/${this.form?.dataset.id}`,
       method: "DELETE",

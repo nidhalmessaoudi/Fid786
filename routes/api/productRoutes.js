@@ -1,11 +1,12 @@
 const router = require("express").Router();
 
+const { apiCheckIfAuthenticated } = require("../../controllers/authController");
 const productController = require("../../controllers/productController");
 
 router
   .route("/")
   .get(productController.getProducts)
-  .post(productController.createProduct);
+  .post(apiCheckIfAuthenticated, productController.createProduct);
 
 router
   .route("/:id")

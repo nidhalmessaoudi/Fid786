@@ -8,6 +8,7 @@ export default class Section {
   private loadingSpinner = `
     <div class="loading-spinner__dashboard"><div class="loading-spinner"></div></div>
   `;
+  protected cardsContainer!: HTMLDivElement;
 
   constructor(private type: TypeSection) {
     this.sectionContainer = document.getElementById(
@@ -18,6 +19,15 @@ export default class Section {
 
   protected render(markup: string) {
     this.sectionContainer.innerHTML = markup;
+
+    this.cardsContainer = document.querySelector(
+      ".dashboard-section__cards"
+    ) as HTMLDivElement;
+
+    this.cardsContainer?.addEventListener(
+      "click",
+      this.cardClickHandler.bind(this)
+    );
 
     if (this.type !== "HOME" && this.type !== "ORDER") {
       document
@@ -36,6 +46,27 @@ export default class Section {
         break;
       case "REWARD":
         new RewardModal();
+        break;
+    }
+  }
+
+  protected cardClickHandler(e: Event) {
+    const target = e.target as HTMLElement;
+
+    if (!target.classList.contains("card-btn")) {
+      return;
+    }
+
+    e.preventDefault();
+
+    const card = target.closest(".dashboard-section__card") as HTMLDivElement;
+
+    switch (card?.dataset.type) {
+      case "STORE":
+        new StoreModal(card?.dataset.id);
+        break;
+      case "PRODUCT":
+        new ProductModal(card?.dataset.id);
         break;
     }
   }

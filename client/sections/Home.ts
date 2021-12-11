@@ -18,7 +18,6 @@ export default class HomeSection extends Section {
                   <div class="dashboard-section__top">
                       <h2 class="dashboard-section__title">Home</h2>
                   </div>
-                  <div class="dashboard-section__overview"><em>(Total: 12)</em></div>
                   <div class="dashboard-section__cards">
                       <div class="dashboard-section__card home-card card-red">
                           <h3 class="home-card__title">Total Stores</h3>

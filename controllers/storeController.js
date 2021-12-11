@@ -18,5 +18,6 @@ exports.updateStore = function (req, res) {
 };
 
 exports.deleteStore = function (req, res) {
+  req.type = "STORE";
   return ApiFactoryController.deleteOne(req, res, Store);
 };

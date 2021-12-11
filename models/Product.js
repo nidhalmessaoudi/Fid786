@@ -18,6 +18,11 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: [true, "A product must have a price"],
     },
+    availability: {
+      type: String,
+      enum: ["In Stock", "Out Of Stock"],
+      default: "In Stock",
+    },
     fidPoints: {
       type: Number,
     },
@@ -43,7 +48,7 @@ const productSchema = new mongoose.Schema(
   }
 );
 
-productSchema.pre("findOne", function (next) {
+productSchema.pre(/^find/, function (next) {
   this.populate({
     path: "owner",
     select: "username",

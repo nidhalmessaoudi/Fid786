@@ -3,11 +3,8 @@ import axios from "axios";
 import Section from "./Section";
 import Store from "../types/Store";
 import formatDate from "../helpers/formatDate";
-import StoreModal from "../modals/Store";
 
 export default class StoreSection extends Section {
-  private cardsContainer!: HTMLDivElement;
-
   constructor() {
     super("STORE");
 
@@ -28,19 +25,11 @@ export default class StoreSection extends Section {
                 <div class="dashboard-section__overview"><em>(Total: ${
                   data.length
                 })</em></div>
-                <div id="storeCards" class="dashboard-section__cards">
+                <div class="dashboard-section__cards">
                     ${this.renderStore(data)}
                 </div>
             </section>
           `
-        );
-
-        this.cardsContainer = document.getElementById(
-          "storeCards"
-        ) as HTMLDivElement;
-        this.cardsContainer.addEventListener(
-          "click",
-          this.cardClickHandler.bind(this)
         );
       })
       .catch((err) => {
@@ -54,7 +43,7 @@ export default class StoreSection extends Section {
 
       return `
             <a href="/${store.subUrl}" target="_blank" rel="noopener noreferrer">
-              <div data-id="${store._id}" class="dashboard-section__card store-card">
+              <div data-id="${store._id}" data-type="STORE" class="dashboard-section__card store-card">
                   <div class="store-card__top">
                       <div class="store-card__info">
                           <span class="store-card__title">${store.name}</span>
@@ -63,7 +52,7 @@ export default class StoreSection extends Section {
                           <span class="store-card__date">${date}</span>
                       </div>
                       <div class="store-card__actions">
-                          <button class="btn btn-primary store-card__btn">Actions</button>
+                          <button class="btn btn-primary card-btn">Actions</button>
                       </div>
                   </div>
                   <div class="store-card__logo">
@@ -75,19 +64,5 @@ export default class StoreSection extends Section {
     });
 
     return stores.join("");
-  }
-
-  private cardClickHandler(e: Event) {
-    const target = e.target as HTMLElement;
-
-    if (!target.classList.contains("store-card__btn")) {
-      return;
-    }
-
-    e.preventDefault();
-
-    const storeCard = target.closest(".store-card") as HTMLDivElement;
-
-    new StoreModal(storeCard?.dataset.id);
   }
 }

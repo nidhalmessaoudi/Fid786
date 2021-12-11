@@ -22,8 +22,12 @@ export default class Modal {
   protected ModalFormContainer: HTMLElement;
   protected form?: HTMLFormElement;
   protected renderedError?: HTMLElement;
+  protected activeTimer = 0;
 
-  constructor(title: string) {
+  constructor(
+    title: string,
+    protected type: "EDITABLE" | "CREATABLE" = "CREATABLE"
+  ) {
     document.body.insertAdjacentHTML("afterbegin", this.overlayMarkup);
     document.body.insertAdjacentHTML("afterbegin", this.modalMarkup);
 
@@ -54,6 +58,12 @@ export default class Modal {
 
   protected renderForm(formMarkup: string) {
     this.ModalFormContainer.innerHTML = formMarkup;
+
+    if (this.type === "EDITABLE") {
+      document
+        .getElementById("deleteDoc")
+        ?.addEventListener("click", this.deleteHandler.bind(this));
+    }
   }
 
   protected closeHandler() {
@@ -73,4 +83,39 @@ export default class Modal {
       this.renderedError.remove();
     }
   }
+
+  private async deleteHandler(e: Event) {
+    try {
+      const target = e.target as HTMLButtonElement;
+
+      if (this.activeTimer) {
+        clearInterval(this.activeTimer);
+        target.textContent = "Delete";
+        target.style.opacity = "1";
+        this.activeTimer = 0;
+        return;
+      }
+
+      let timer = 3;
+      target.textContent = `Undo... ${timer}`;
+      target.style.opacity = "0.7";
+      this.activeTimer = window.setInterval(async () => {
+        if (timer !== 0) {
+          timer--;
+          target.textContent = `Undo... ${timer}`;
+          return;
+        }
+
+        target.textContent = "Deleting";
+        target.disabled = true;
+        await this.deleteDoc();
+        this.closeHandler();
+        clearInterval(this.activeTimer);
+      }, 1000);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  protected async deleteDoc() {}
 }

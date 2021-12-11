@@ -18,5 +18,6 @@ exports.updateProduct = function (req, res) {
 };
 
 exports.deleteProduct = function (req, res) {
+  req.type = "PRODUCT";
   return ApiFactoryController.deleteOne(req, res, Product);
 };
