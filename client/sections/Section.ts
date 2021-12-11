@@ -68,6 +68,9 @@ export default class Section {
       case "PRODUCT":
         new ProductModal(card?.dataset.id);
         break;
+      case "REWARD":
+        new RewardModal(card?.dataset.id);
+        break;
     }
   }
 }

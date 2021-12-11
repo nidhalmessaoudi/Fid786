@@ -12,24 +12,30 @@ export default class ProductModal extends Modal {
   constructor(productId?: string) {
     super("New Product", productId ? "EDITABLE" : "CREATABLE");
 
-    this.render(productId).then(() => {
-      this.form = document.querySelector(".modal-form") as HTMLFormElement;
-      this.select = document.getElementById("storeSelect") as HTMLSelectElement;
-      this.photoInputs = document.getElementById(
-        "photoInputs"
-      ) as HTMLDivElement;
+    this.render(productId)
+      .then(() => {
+        this.form = document.querySelector(".modal-form") as HTMLFormElement;
+        this.select = document.getElementById(
+          "storeSelect"
+        ) as HTMLSelectElement;
+        this.photoInputs = document.getElementById(
+          "photoInputs"
+        ) as HTMLDivElement;
 
-      this.selectChangeHandler();
+        this.selectChangeHandler();
 
-      this.select.addEventListener(
-        "change",
-        this.selectChangeHandler.bind(this)
-      );
-      this.form.addEventListener("submit", this.submitHandler.bind(this));
-      document
-        .getElementById("addPhoto")!
-        .addEventListener("click", this.addPhotoHandler.bind(this));
-    });
+        this.select.addEventListener(
+          "change",
+          this.selectChangeHandler.bind(this)
+        );
+        this.form.addEventListener("submit", this.submitHandler.bind(this));
+        document
+          .getElementById("addPhoto")!
+          .addEventListener("click", this.addPhotoHandler.bind(this));
+      })
+      .catch((_) => {
+        return;
+      });
   }
 
   private async render(productId?: string) {
@@ -77,13 +83,26 @@ export default class ProductModal extends Modal {
 
       const storesData = storesRes.data.data as [Store];
 
+      if (!storesData.length) {
+        this.renderForm(
+          `
+            <div class="modal-error">
+              <h3>No store was created!</h3>
+              <em>(Please create a store first)</em>
+            </div>
+          `
+        );
+        throw new Error("CANCEL");
+      }
+
       this.renderForm(`
         <form class="modal-form" data-id="${productId || ""}">
           <div class="form-control">
             <label>Store</label>
               <select id="storeSelect" name="store">
-                ${storesData?.map((store) => {
-                  return `
+                ${storesData
+                  ?.map((store) => {
+                    return `
                     <option
                     data-id="${store._id}"
                     value="${store.name}"
@@ -91,7 +110,8 @@ export default class ProductModal extends Modal {
                       ${store.name}
                     </option>
                   `;
-                })}
+                  })
+                  .join("")}
               </select>
           </div>
           <div class="form-control">

@@ -8,11 +8,6 @@ const rewardSchema = new mongoose.Schema(
       ref: "Product",
       required: [true, "A reward must have a product"],
     },
-    store: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Store",
-      required: [true, "A reward must belong to a store"],
-    },
     requiredPoints: {
       type: Number,
       require: [true, "A reward must have the required points"],
@@ -26,7 +21,7 @@ const rewardSchema = new mongoose.Schema(
 );
 
 rewardSchema.pre(/^find/, function (next) {
-  this.populate("product store");
+  this.populate("product");
   next();
 });
 
