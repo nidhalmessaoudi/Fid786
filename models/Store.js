@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const mongoosePaginate = require("mongoose-paginate-v2");
 
+const Product = require("./Product");
+
 const storeSchema = new mongoose.Schema(
   {
     name: {
@@ -58,6 +60,12 @@ storeSchema.pre("findOne", function (next) {
     path: "owner",
     select: "username",
   }).populate("products rewards");
+
+  next();
+});
+
+storeSchema.post("findOneAndDelete", async function (deletedStore, next) {
+  await Product.deleteMany({ store: deletedStore._id });
 
   next();
 });

@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const mongoosePaginate = require("mongoose-paginate-v2");
 
+const Reward = require("./Reward");
+
 const productSchema = new mongoose.Schema(
   {
     name: {
@@ -20,7 +22,7 @@ const productSchema = new mongoose.Schema(
     },
     availability: {
       type: String,
-      enum: ["In Stock", "Out Of Stock"],
+      enum: ["In Stock", "Out of Stock"],
       default: "In Stock",
     },
     fidPoints: {
@@ -56,6 +58,15 @@ productSchema.pre(/^find/, function (next) {
 
   next();
 });
+
+async function deleteRelatedRewards(deletedProduct, next) {
+  await Reward.deleteMany({ store: deletedProduct._id });
+
+  next();
+}
+
+productSchema.post("findOneAndDelete", deleteRelatedRewards);
+productSchema.post("deleteMany", deleteRelatedRewards);
 
 productSchema.plugin(mongoosePaginate);
 

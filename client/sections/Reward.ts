@@ -34,7 +34,11 @@ export default class RewardSection extends Section {
   }
 
   private renderReward(data: [Reward]) {
+    console.log(data);
+
     const rewards = data.map((reward) => {
+      console.log(reward);
+
       const date = formatDate(reward.createdAt);
       const availability = reward.product.availability;
       return `

@@ -1,8 +1,5 @@
 const mongoose = require("mongoose");
 
-const Product = require("../models/Product");
-const Reward = require("../models/Reward");
-
 exports.getAll = async function (req, res, model) {
   try {
     const queries = req.query;
@@ -120,15 +117,6 @@ exports.updateOne = async function (req, res, model) {
 exports.deleteOne = async function (req, res, model) {
   try {
     await model.findByIdAndDelete(req.params.id);
-
-    switch (req.type) {
-      case "STORE":
-        await Product.deleteMany({ store: req.params.id });
-        break;
-      case "PRODUCT":
-        await Reward.deleteMany({ product: req.params.id });
-        break;
-    }
 
     res.status(204).json({
       status: "success",
