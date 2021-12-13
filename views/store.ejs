@@ -1,0 +1,76 @@
+<%- include ("includes/head") %>
+  <body>
+    <%- include ("includes/navbar") %>
+    <div class="main-container">
+        <div class="store-top">
+            <div class="store-top__img">
+                <img src="<%= store.logo %>" alt="<%= store.name %>">
+            </div>
+            <div>
+                <h1 class="store-top__title"><%= store.name %></h1>
+                <div class="store-top__overview">
+                    <i class="bi bi-geo-alt"></i>
+                    <em><%=  store.location %></em>
+                    ·
+                    <em>
+                        (<%= products.totalDocs %>
+                        <%= products.totalDocs > 1 ? "Products" : "Product" %>)
+                    </em>
+                </div>
+            </div>
+        </div>
+        <div class="product-cards">
+            <% products.docs.forEach((product) => { %>
+                <a 
+                href="/stores/<%= store.subUrl %>/<%= product._id %>"
+                target="_blank" rel="noopener noreferrer"
+                >
+                    <div 
+                        data-id="<%= product._id %>"
+                        data-type="PRODUCT"
+                        class="product-card"
+                    >
+                        <div class="product-card__img">
+                            <img src="<%= product.photos[0] %>" />
+                        </div>
+                        <div class="product-card__info">
+                            <div class="product-card__top">
+                                <span class="product-card__title"><%= product.name %></span>
+                                <span 
+                                class="product-card__<%= product.availability.toLowerCase().replace(/\s/g, "-") %>"
+                                >
+                                <% if (product.availability === "In Stock") { %>
+                                    <i class="bi bi-check-lg"></i>
+                                <% } else { %>
+                                    <i class="bi bi-exclamation-circle"></i>
+                                <% } %>
+                                <%= product.availability %>
+                                </span>
+                            </div>
+                            <span class="product-card__store"><%= store.name %></span>
+                            ·
+                            <span class="product-card__date"><%= product.date %></span>
+                            <div class="product-card__bottom">
+                                <span class="product-card__price">€<%= product.price %></span>
+                                <span class="product-card__points"><%= product.fidPoints %> Fid Points</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            <% }); %>
+        </div>
+        <div class="store-nav">
+            <div class="store-nav__btns">
+                <% for( let i = 1; i <= products.totalPages; i++ ) { %>
+                    <a href="/stores/<%= store.subUrl %>?p=<%= i %>">
+                        <button 
+                        class="btn nav-btn <%= i === products.page ? "nav-btn__active" : ""%>"
+                        ><%= i %></button>
+                    </a>
+                <% } %>
+            </div>
+            <em class="store-nav__info">Displaying <%= products.limit %> per page</em>
+        </div>
+    </div>
+  </body>
+</html>

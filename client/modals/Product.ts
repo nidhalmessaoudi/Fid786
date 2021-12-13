@@ -263,7 +263,9 @@ export default class ProductModal extends Modal {
           store: storeInput.dataset.id,
           name: nameInput.value,
           description: descriptionInput.value.trim(),
-          photos: photoInputs.map((input) => input.value),
+          photos: photoInputs
+            .filter((input) => input.value !== "")
+            .map((input) => input.value),
           price: +priceInput.value,
           deliveryTime: +deliveryInput.value,
           fidPoints: +fidPointsInput.value,

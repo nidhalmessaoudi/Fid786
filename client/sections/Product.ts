@@ -60,6 +60,11 @@ export default class ProductSection extends Section {
                                .toLowerCase()
                                .replace(/\s/g, "-")}"
                             >
+                             ${
+                               availability === "In Stock"
+                                 ? `<i class="bi bi-check-lg"></i>`
+                                 : `<i class="bi bi-exclamation-circle"></i>`
+                             }
                              ${availability}
                             </span>
                         </div>

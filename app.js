@@ -16,6 +16,8 @@ const { setupAuth } = require("./controllers/authController");
 const homeRoutes = require("./routes/server/homeRoutes");
 const userRoutes = require("./routes/server/userRoutes");
 const dashboardRoutes = require("./routes/server/dashboardRoutes");
+const serverStoreRoutes = require("./routes/server/storeRoutes");
+const serverProductRoutes = require("./routes/server/productRoutes");
 
 // API ROUTES
 const overviewRoutes = require("./routes/api/overviewRoutes");
@@ -32,7 +34,11 @@ app.set("view engine", "ejs");
 
 app.use(cors());
 
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 
 app.use(express.json());
 app.use(
@@ -70,6 +76,8 @@ app.use(hpp());
 app.use(homeRoutes);
 app.use(userRoutes);
 app.use(dashboardRoutes);
+app.use("/stores", serverStoreRoutes);
+app.use("/stores", serverProductRoutes);
 
 // API
 app.use("/api/v1/overview", overviewRoutes);

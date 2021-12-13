@@ -1,5 +1,7 @@
 const ApiFactoryController = require("./ApiFactoryController");
 const Store = require("../models/Store");
+const Product = require("../models/Product");
+const formatDate = require("../helpers/formatDate");
 
 // API
 exports.getStores = function (req, res) {
@@ -23,14 +25,38 @@ exports.deleteStore = function (req, res) {
 };
 
 // SERVER
-exports.getOne = async function (req, res) {
+exports.getOne = async function (req, res, next) {
   try {
     const store = await Store.findOne({ subUrl: req.params.store });
 
+    const productsOptions = {
+      page: req.query.p || 1,
+      limit: 8,
+      sort: { createdAt: -1 },
+    };
+
+    const products = await Product.paginate(
+      { store: store._id },
+      productsOptions
+    );
+
+    if (!products.docs.length && products.totalDocs) {
+      return res.redirect(`/stores/${store.subUrl}?p=${products.totalPages}`);
+    }
+
+    products.docs.forEach((doc) => {
+      doc.date = formatDate(doc.createdAt);
+    });
+
+    console.log(products);
+
     res.render("store", {
       title: `Fid786 | ${store.name}`,
-      styleFile: undefined,
-      products: store.products,
+      styleFile: "store.css",
+      store,
+      products,
     });
-  } catch (err) {}
+  } catch (err) {
+    return next();
+  }
 };

@@ -1,0 +1,28 @@
+<%- include ("includes/head") %>
+  <body>
+    <%- include ("includes/navbar") %>
+    <div class="main-container">
+        <div class="product-container">
+            <div class="product-imgs">
+                <% product.photos.forEach((photo, i) => { %>
+                    <img src="<%= photo %>" alt="<%= product.name %> <%= i+1 %>">
+                <% }) %>
+            </div>
+            <div class="product-img__active">
+                <img src="<%= product.photos[0] %>" alt="<%= product.name %> 1">
+            </div>
+            <div class="product-info">
+                <h1><%= product.name %></h1>
+                <em>
+                    From
+                    <a href="/stores/<%= product.store.subUrl %>">
+                        <%= product.store.name %>
+                    </a>
+                </em>
+                <p><%= product.description %></p>
+            </div>
+            <button class="btn btn-primary">Order Now</button>
+        </div>
+    </div>
+  </body>
+</html>
