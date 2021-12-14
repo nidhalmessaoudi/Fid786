@@ -319,12 +319,14 @@ a:visited {
   margin-top: 0.8rem;
 }
 
+.product__in-stock,
 .product-card__in-stock {
   color: #519259;
   padding: 0 16px;
   text-align: center;
 }
 
+.product__out-of-stock,
 .product-card__out-of-stock {
   color: #dd4a48;
   padding: 0 16px;

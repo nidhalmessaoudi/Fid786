@@ -21,7 +21,48 @@
                 </em>
                 <p><%= product.description %></p>
             </div>
-            <button class="btn btn-primary">Order Now</button>
+            <div class="product-action">
+                <div class="product-price__container">
+                    <p class="product-price">€<%= product.price %></p>
+                    <span 
+                    class="product__<%= product.availability.toLowerCase().replace(/\s/g, "-") %>"
+                    >
+                        <% if (product.availability === "In Stock") { %>
+                            <i class="bi bi-check-lg"></i>
+                        <% } else { %>
+                            <i class="bi bi-exclamation-circle"></i>
+                        <% } %>
+                        <%= product.availability %>
+                    </span>
+                </div>
+                <% if (product.fidPoints) { %>                 
+                    <p class="product-fidelity">
+                        You will win
+                        <span class="product-fidelity__highlight">
+                            <%= product.fidPoints %> fidelity points
+                        </span>
+                        when you buy this product!
+                        <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href="/fidpoints"
+                        >
+                            (Check your fid points)
+                        </a>
+                    </p>
+                <% } %>
+                <div class="form-control">
+                    <label for="orderAmount">Qty:</label>
+                    <input id="orderAmount" type="number" min="1">
+                </div>
+                <button
+                id="orderProduct"
+                class="btn btn-primary product-order"
+                <% product.availability === "In Stock" ? "" : "disabled" %>
+                >
+                    Order Now
+                </button>
+            </div>
         </div>
     </div>
   </body>
