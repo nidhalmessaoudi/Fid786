@@ -13,13 +13,17 @@ const orderSchema = new mongoose.Schema(
       enum: ["pending", "delivered"],
       default: "pending",
     },
-    price: {
+    totalPrice: {
       type: Number,
-      required: [true, "An order must have a price"],
+      required: [true, "An order must have a total Price"],
     },
     amount: {
       type: Number,
       default: 1,
+    },
+    buyerLocation: {
+      type: String,
+      required: [true, "An order must have a buyer location"],
     },
     buyer: {
       type: mongoose.Schema.ObjectId,

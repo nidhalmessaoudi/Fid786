@@ -10,7 +10,7 @@ export default class RewardModal extends Modal {
   constructor(rewardId?: string) {
     super("New Reward", rewardId ? "EDITABLE" : "CREATABLE");
 
-    this.render(rewardId)
+    this.load(rewardId)
       .then(() => {
         this.form = document.querySelector(".modal-form") as HTMLFormElement;
         this.select = document.getElementById(
@@ -30,7 +30,7 @@ export default class RewardModal extends Modal {
       });
   }
 
-  private async render(rewardId?: string) {
+  protected async load(rewardId?: string) {
     try {
       let buttons;
       let productValue = "";
@@ -64,7 +64,7 @@ export default class RewardModal extends Modal {
       const productsData = productsRes.data.data as [Product];
 
       if (!productsData.length) {
-        this.renderForm(
+        this.render(
           `
             <div class="modal-error">
               <h3>No product was created!</h3>
@@ -75,7 +75,7 @@ export default class RewardModal extends Modal {
         throw new Error("CANCEL");
       }
 
-      this.renderForm(`
+      this.render(`
         <form class="modal-form" data-id="${rewardId || ""}">
           <div class="form-control">
               <label>Product To Be Rewarded</label>

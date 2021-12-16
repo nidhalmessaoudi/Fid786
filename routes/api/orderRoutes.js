@@ -5,7 +5,7 @@ const orderController = require("../../controllers/orderController");
 router
   .route("/")
   .get(orderController.getOrders)
-  .post(orderController.createOrder);
+  .post(orderController.attachSellerAndBuyer, orderController.createOrder);
 
 router
   .route("/:id")

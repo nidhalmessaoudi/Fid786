@@ -12,7 +12,7 @@ export default class ProductModal extends Modal {
   constructor(productId?: string) {
     super("New Product", productId ? "EDITABLE" : "CREATABLE");
 
-    this.render(productId)
+    this.load(productId)
       .then(() => {
         this.form = document.querySelector(".modal-form") as HTMLFormElement;
         this.select = document.getElementById(
@@ -38,7 +38,7 @@ export default class ProductModal extends Modal {
       });
   }
 
-  private async render(productId?: string) {
+  protected async load(productId?: string) {
     try {
       let buttons;
       let storeValue = "";
@@ -84,7 +84,7 @@ export default class ProductModal extends Modal {
       const storesData = storesRes.data.data as [Store];
 
       if (!storesData.length) {
-        this.renderForm(
+        this.render(
           `
             <div class="modal-error">
               <h3>No store was created!</h3>
@@ -95,7 +95,7 @@ export default class ProductModal extends Modal {
         throw new Error("CANCEL");
       }
 
-      this.renderForm(`
+      this.render(`
         <form class="modal-form" data-id="${productId || ""}">
           <div class="form-control">
             <label>Store</label>

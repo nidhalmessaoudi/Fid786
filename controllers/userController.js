@@ -11,6 +11,7 @@ exports.getRegister = function (req, res) {
   res.render("register", {
     title: "Fid786 | Sign Up",
     styleFile: undefined,
+    user: req.user || undefined,
     error: errorFlash.length > 0 ? errorFlash[0] : undefined,
   });
 };
@@ -50,8 +51,14 @@ exports.getLogin = function (req, res) {
   res.render("login", {
     title: "Fid786 | Log In",
     styleFile: undefined,
+    user: req.user || undefined,
     error: errorFlash.length > 0 ? errorFlash[0] : undefined,
   });
 };
 
 exports.postLogin = authController.postLogin;
+
+exports.getLogout = function (req, res) {
+  req.logout();
+  res.redirect("/");
+};

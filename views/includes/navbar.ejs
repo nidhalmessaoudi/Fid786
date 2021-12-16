@@ -7,6 +7,25 @@
     <a href="/services"><li class="nav-link">Services</li></a>
     <a href="/contact"><li class="nav-link">Contact</li></a>
   </ul>
+  <% if (user) { %>
+  <div class="user-actions">
+    <span class="dropdown-toggle" id="dropdownToggle">
+      <i class="bi bi-person-circle"></i>
+      <span class="dropdown-toggle__text"><%= user.username %></span>
+      <span class="dropdown-toggle__icon">
+        <i class="bi bi-caret-down-fill"></i>
+      </span>
+    </span>
+    <template id="userDropdownTemplate">
+      <div class="dropdown" id="userDropdown">
+        <a href="/dashboard"><div class="dropdown-item">Dashboard</div></a>
+        <a href="#"><div class="dropdown-item">My Orders</div></a>
+        <a href="#"><div class="dropdown-item">Fidelity</div></a>
+        <a href="#"><div class="dropdown-item">Log Out</div></a>
+      </div>
+    </template>
+  </div>
+  <% } else { %>
   <div>
     <a href="/login" class="nav-link"
       ><button type="button" class="btn btn-secondary">Connexion</button></a
@@ -15,4 +34,5 @@
       ><button type="button" class="btn btn-primary">S'inscrire</button></a
     >
   </div>
+  <% } %>
 </nav>

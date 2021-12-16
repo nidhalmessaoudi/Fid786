@@ -9,14 +9,14 @@ export default class StoreModal extends Modal {
   constructor(storeId?: string) {
     super("New Store", storeId ? "EDITABLE" : "CREATABLE");
 
-    this.render(storeId).then(() => {
+    this.load(storeId).then(() => {
       this.form = document.querySelector(".modal-form") as HTMLFormElement;
 
       this.form.addEventListener("submit", this.submitHandler.bind(this));
     });
   }
 
-  private async render(storeId?: string) {
+  protected async load(storeId?: string) {
     try {
       let buttons;
       let nameValue;
@@ -43,7 +43,7 @@ export default class StoreModal extends Modal {
         buttons = `<button type="submit" class="btn btn-primary">Submit</button>`;
       }
 
-      this.renderForm(`
+      this.render(`
       <form class="modal-form" data-id="${storeId || ""}">
           <div class="form-control">
               <label>Store Name *</label>

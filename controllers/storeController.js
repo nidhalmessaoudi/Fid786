@@ -48,11 +48,10 @@ exports.getOne = async function (req, res, next) {
       doc.date = formatDate(doc.createdAt);
     });
 
-    console.log(products);
-
     res.render("store", {
       title: `Fid786 | ${store.name}`,
       styleFile: "store.css",
+      user: req.user || undefined,
       store,
       products,
     });

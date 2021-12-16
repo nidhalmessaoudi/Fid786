@@ -61,6 +61,11 @@ a:visited {
   transition: all 300ms;
 }
 
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .nav-btn {
   border: 1px solid var(--color-primary);
   color: var(--color-primary);
@@ -336,4 +341,62 @@ a:visited {
 .product-card__price {
   color: var(--color-primary);
   font-size: 1.3rem;
+}
+
+/* USER DROPDOWN */
+.user-actions {
+  flex-direction: column;
+  align-items: flex-end;
+  position: relative;
+}
+
+.dropdown-toggle {
+  user-select: none;
+  cursor: pointer;
+  float: right;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.dropdown-toggle:hover {
+  text-decoration: underline;
+}
+
+.dropdown-toggle__text {
+  font-size: 1.1rem;
+}
+
+.dropdown-toggle__icon {
+  top: 2px;
+  margin-left: 6px;
+  font-size: 12px;
+}
+
+.dropdown {
+  padding: 0.5rem 0;
+  background-color: #ffffff;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  margin-top: 5px;
+  position: absolute;
+  top: 1.3rem;
+  right: 0;
+  z-index: 444;
+  box-shadow: 0px -2px 46px -23px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0px -2px 46px -23px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px -2px 46px -23px rgba(0, 0, 0, 0.75);
+  transition: all;
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+}
+
+.dropdown-item:hover {
+  background-color: rgb(0, 0, 0, 0.05);
+}
+
+.loading-spinner__dashboard {
+  margin-top: 15%;
 }

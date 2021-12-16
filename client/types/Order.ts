@@ -5,8 +5,9 @@ import User from "./User";
 export default interface Order extends Doc {
   product: Product;
   state: "pending" | "delivered";
-  price: number;
+  totalPrice: number;
   amount: number;
+  buyerLocation: string;
   buyer: User;
   seller: User;
 }

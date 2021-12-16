@@ -19,7 +19,7 @@ export default class Modal {
   private modal: HTMLElement;
   protected modalTitle: HTMLElement;
   private modalClose: HTMLElement;
-  protected ModalFormContainer: HTMLElement;
+  protected modalContentContainer: HTMLElement;
   protected form?: HTMLFormElement;
   protected renderedError?: HTMLElement;
   protected activeTimer = 0;
@@ -35,12 +35,12 @@ export default class Modal {
     this.modal = document.querySelector(".modal") as HTMLElement;
     this.modalTitle = document.querySelector(".modal-brand") as HTMLElement;
     this.modalClose = document.querySelector(".modal-close") as HTMLElement;
-    this.ModalFormContainer = document.querySelector(
+    this.modalContentContainer = document.querySelector(
       ".modal-content"
     ) as HTMLElement;
 
     this.modalTitle.textContent = title;
-    this.ModalFormContainer.innerHTML = this.loadingSpinner;
+    this.modalContentContainer.innerHTML = this.loadingSpinner;
 
     this.modalClose.addEventListener("click", this.closeHandler.bind(this));
     this.overlay.addEventListener("click", this.closeHandler.bind(this));
@@ -56,9 +56,8 @@ export default class Modal {
     }
   }
 
-  protected renderForm(formMarkup: string) {
-    this.ModalFormContainer.innerHTML = formMarkup;
-
+  protected render(markup: string) {
+    this.modalContentContainer.innerHTML = markup;
     if (this.type === "EDITABLE") {
       document
         .getElementById("deleteDoc")

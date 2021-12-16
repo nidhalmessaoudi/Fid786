@@ -3,23 +3,29 @@
     <%- include ("includes/navbar") %>
     <div class="main-container">
         <div class="product-container">
-            <div class="product-imgs">
+            <div id="productImgs" class="product-imgs">
                 <% product.photos.forEach((photo, i) => { %>
                     <img src="<%= photo %>" alt="<%= product.name %> <%= i+1 %>">
                 <% }) %>
             </div>
-            <div class="product-img__active">
+            <div id="productActiveImg" class="product-img__active">
                 <img src="<%= product.photos[0] %>" alt="<%= product.name %> 1">
             </div>
             <div class="product-info">
                 <h1><%= product.name %></h1>
-                <em>
-                    From
-                    <a href="/stores/<%= product.store.subUrl %>">
-                        <%= product.store.name %>
-                    </a>
-                </em>
-                <p><%= product.description %></p>
+                <div class="product-store">
+                    <em>
+                        <i class="bi bi-geo-alt"></i>
+                        <span><%= product.store.location %></span>
+                        ·
+                        <a href="/stores/<%= product.store.subUrl %>">
+                            <%= product.store.name %>
+                        </a>
+                    </em>
+                </div>
+                <div class="product-description">
+                    <p><%= product.description %></p>
+                </div>
             </div>
             <div class="product-action">
                 <div class="product-price__container">
@@ -43,27 +49,74 @@
                         </span>
                         when you buy this product!
                         <a
-                        target="_blank"
-                        rel="noopener noreferrer"
                         href="/fidpoints"
                         >
                             (Check your fid points)
                         </a>
                     </p>
                 <% } %>
-                <div class="form-control">
-                    <label for="orderAmount">Qty:</label>
-                    <input id="orderAmount" type="number" min="1">
+                <div class="product-order__container">
+                    <form id="orderProduct" data-id="<%= product._id %>">
+                        <div class="form-control form-control__mini">
+                            <label for="orderAmount">Qty:</label>
+                            <input id="orderAmount" type="number" min="1" value="1" required>
+                        </div>
+                        <button
+                        type="submit"
+                        class="btn btn-primary product-order__btn"
+                        <%= product.availability === "In Stock" ? "" : "disabled" %>
+                        >
+                            Order Now
+                        </button>
+                    </form>
                 </div>
-                <button
-                id="orderProduct"
-                class="btn btn-primary product-order"
-                <% product.availability === "In Stock" ? "" : "disabled" %>
-                >
-                    Order Now
-                </button>
             </div>
         </div>
+        <% if (otherProducts.length) { %>
+            <div class="other-products">
+                <h2>Other Products from <%= product.store.name%>:</h2>
+                <div class="other-products__cards">
+                    <% otherProducts.forEach((prod) => { %>
+                        <a 
+                        href="/stores/<%= prod.store.subUrl %>/<%= prod._id %>"
+                        target="_blank" rel="noopener noreferrer"
+                        >
+                            <div 
+                                data-id="<%= prod._id %>"
+                                data-type="PRODUCT"
+                                class="product-card"
+                            >
+                                <div class="product-card__img">
+                                    <img src="<%= prod.photos[0] %>" />
+                                </div>
+                                <div class="product-card__info">
+                                    <div class="product-card__top">
+                                        <span class="product-card__title"><%= prod.name %></span>
+                                        <span 
+                                        class="product-card__<%= prod.availability.toLowerCase().replace(/\s/g, "-") %>"
+                                        >
+                                        <% if (prod.availability === "In Stock") { %>
+                                            <i class="bi bi-check-lg"></i>
+                                        <% } else { %>
+                                            <i class="bi bi-exclamation-circle"></i>
+                                        <% } %>
+                                        <%= prod.availability %>
+                                        </span>
+                                    </div>
+                                    <span class="product-card__store"><%= prod.store.name %></span>
+                                    ·
+                                    <span class="product-card__date"><%= prod.date %></span>
+                                    <div class="product-card__bottom">
+                                        <span class="product-card__price">€<%= prod.price %></span>
+                                        <span class="product-card__points"><%= prod.fidPoints %> Fid Points</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    <% }) %>
+                </div>
+            </div>
+        <% } %>
     </div>
   </body>
 </html>

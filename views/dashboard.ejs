@@ -35,15 +35,16 @@
         <div class="user-actions">
             <span class="dropdown-toggle" id="dropdownToggle">
                 <i class="bi bi-person-circle"></i>
-                <span class="dropdown-toggle__text">test</span>
+                <span class="dropdown-toggle__text"><%= user.username %></span>
                 <span class="dropdown-toggle__icon">
                     <i class="bi bi-caret-down-fill"></i>
                 </span>
             </span>
             <template id="userDropdownTemplate">
                 <div class="dropdown" id="userDropdown">
-                    <a href="#"><div class="dropdown-item" >Dashboard</div></a>
+                    <a href="/dashboard"><div class="dropdown-item" >Dashboard</div></a>
                     <a href="#"><div class="dropdown-item" >My Orders</div></a>
+                    <a href="#"><div class="dropdown-item" >Fidelity</div></a>
                     <a href="#"><div class="dropdown-item" >Log Out</div></a>
                 </div>
             </template>

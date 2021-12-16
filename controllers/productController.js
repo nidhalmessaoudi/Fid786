@@ -1,5 +1,6 @@
 const ApiFactoryController = require("./ApiFactoryController");
 const Product = require("../models/Product");
+const formatDate = require("../helpers/formatDate");
 
 // API
 exports.getProducts = function (req, res) {
@@ -25,7 +26,7 @@ exports.deleteProduct = function (req, res) {
 // SERVER
 exports.getOne = async function (req, res, next) {
   try {
-    const product = await Product.findOne({ subUrl: req.params.productId });
+    const product = await Product.findOne({ _id: req.params.productId });
 
     if (product.store.subUrl !== req.params.store) {
       return next();
@@ -36,9 +37,14 @@ exports.getOne = async function (req, res, next) {
       { page: 1, limit: 4, sort: { createdAt: -1 } }
     );
 
+    otherProducts.docs.forEach((doc) => {
+      doc.date = formatDate(doc.createdAt);
+    });
+
     res.render("product", {
       title: `Fid786 | ${product.name}`,
       styleFile: "product.css",
+      user: req.user || undefined,
       product,
       otherProducts: otherProducts.docs,
     });
