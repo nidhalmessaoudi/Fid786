@@ -3,9 +3,10 @@
     <a href="/"><h2>Fid786</h2></a>
   </div>
   <ul class="nav-links">
-    <a href="/"><li class="nav-link">Accueil</li></a>
-    <a href="/services"><li class="nav-link">Services</li></a>
-    <a href="/contact"><li class="nav-link">Contact</li></a>
+    <a href="/"><li class="nav-link">Home</li></a>
+    <a href="/#about"><li class="nav-link">About</li></a>
+    <a href="/#services"><li class="nav-link">Services</li></a>
+    <a href="/#contact"><li class="nav-link">Contact</li></a>
   </ul>
   <% if (user) { %>
   <div class="user-actions">
@@ -21,17 +22,17 @@
         <a href="/dashboard"><div class="dropdown-item">Dashboard</div></a>
         <a href="#"><div class="dropdown-item">My Orders</div></a>
         <a href="#"><div class="dropdown-item">Fidelity</div></a>
-        <a href="#"><div class="dropdown-item">Log Out</div></a>
+        <a href="/logout"><div class="dropdown-item">Log Out</div></a>
       </div>
     </template>
   </div>
   <% } else { %>
   <div>
     <a href="/login" class="nav-link"
-      ><button type="button" class="btn btn-secondary">Connexion</button></a
+      ><button type="button" class="btn btn-secondary">Log In</button></a
     >
     <a href="/register" class="nav-link"
-      ><button type="button" class="btn btn-primary">S'inscrire</button></a
+      ><button type="button" class="btn btn-primary">Register</button></a
     >
   </div>
   <% } %>

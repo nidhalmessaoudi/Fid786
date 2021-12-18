@@ -1,18 +1,40 @@
-<!DOCTYPE html>
-<html lang="fr">
-  <%- include ("includes/head") %>
+<%- include ("includes/head") %>
   <body>
     <%- include ("includes/navbar") %>
     <div class="main-container">
-      <% if (error) { %>
-      <p><%- error %></p>
-      <% } %>
-      <form action="/register" method="post">
-        <input type="text" name="username" placeholder="Username" />
-        <input type="email" name="email" placeholder="Email" />
-        <input type="password" name="password" placeholder="Password" />
-        <button type="submit">Submit</button>
-      </form>
+      <div class="sign-form__container">
+        <h1>Register</h1>
+        <% if (error) { %>
+        <p><%- error %></p>
+        <% } %>
+        <form action="/register" method="post">
+          <div class="form-control">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Username"
+            />
+          </div>
+          <div class="form-control">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Email" />
+          </div>
+          <div class="form-control">
+            <label for="pwd">Password</label>
+            <input
+              type="password"
+              id="pwd"
+              name="password"
+              placeholder="Password"
+            />
+          </div>
+          <button class="btn btn-primary" type="submit">Register</button>
+        </form>
+      </div>
+      <hr class="section-end">
+      <%- include("includes/footer") %>
     </div>
   </body>
 </html>

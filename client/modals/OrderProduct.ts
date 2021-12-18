@@ -7,7 +7,11 @@ export default class OrderProductModal extends Modal {
   private orderTotalEl!: HTMLParagraphElement;
   private price?: number;
 
-  constructor(productId: string, private quantity: number) {
+  constructor(
+    private orderType: string,
+    productId: string,
+    private quantity: number
+  ) {
     super("New Order");
 
     this.load(productId)
@@ -43,6 +47,27 @@ export default class OrderProductModal extends Modal {
       });
 
       const product = res.data.doc as Product;
+
+      if (this.orderType === "FREE") {
+        this.render(`
+          <form id="submitOrder" class="order-modal" data-id="${productId}">
+            <h3 class="order-modal__title">${product.name}</h3>
+            <div class="order-modal__info">
+              <span class="order-modal__single-price">FREE</span>
+            </div>
+            <div class="form-control">
+                <label>Delivery Location *</label>
+                <input type="text" name="buyerLocation" placeholder="Put your delivery location here..." required>
+            </div>
+            <div class="form-control order-modal__total">
+              <label>Total Price</label>
+              <p id="orderTotal">FREE</p>
+            </div>
+            <button type="submit" class="btn btn-primary">Order Now</button>
+          </form>
+        `);
+        return;
+      }
 
       this.price = product.price;
 
@@ -101,21 +126,21 @@ export default class OrderProductModal extends Modal {
       submitBtn.textContent = "Ordering";
       submitBtn.disabled = true;
 
-      const res = await axios({
-        url: "/api/v1/orders",
+      await axios({
+        url: `/api/v1/orders${this.orderType === "FREE" ? "?type=free" : ""}`,
         method: "POST",
         headers: { "Content-Type": "application/json" },
         data: {
           product: this.form?.dataset.id,
           buyerLocation: buyerLocationInput.value,
-          amount: +amountInput.value,
-          totalPrice: this.price! * +amountInput.value,
+          amount: +amountInput?.value || 0,
+          totalPrice:
+            (+amountInput?.value && this.price! * +amountInput?.value) || 0,
         },
       });
 
-      console.log(res);
-
       this.closeHandler();
+      location.href = "/orders";
     } catch (err) {
       console.log(err);
       this.closeHandler();

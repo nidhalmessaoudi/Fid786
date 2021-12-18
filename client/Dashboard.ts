@@ -6,17 +6,8 @@ import RewardSection from "./sections/Reward";
 import StoreSection from "./sections/Store";
 
 export default class Dashboard {
-  // private focusedEl?: HTMLElement;
   constructor() {
     this.renderDashboard();
-
-    // const userDropdownToggle = document.getElementById(
-    //   "dropdownToggle"
-    // )! as HTMLSpanElement;
-    // userDropdownToggle.addEventListener(
-    //   "click",
-    //   this.dropdownToggleHandler.bind(this)
-    // );
 
     const sidebarItemsContainer = document.getElementById(
       "sidebarItems"
@@ -66,44 +57,6 @@ export default class Dashboard {
       }
     });
   }
-
-  // private dropdownToggleHandler() {
-  //   if (this.focusedEl) {
-  //     return;
-  //   }
-
-  //   const userDropdownTemplate = document.getElementById(
-  //     "userDropdownTemplate"
-  //   )! as HTMLTemplateElement;
-
-  //   userDropdownTemplate.parentElement?.appendChild(
-  //     userDropdownTemplate.content.cloneNode(true) as HTMLElement
-  //   );
-
-  //   this.focusedEl = document.getElementById("userDropdown")!;
-
-  //   setTimeout(() => this.attachListenerToBody(), 50);
-  // }
-
-  // private attachListenerToBody() {
-  //   document.body.addEventListener(
-  //     "click",
-  //     this.closeFocusedHandler.bind(this),
-  //     { once: true }
-  //   );
-  // }
-
-  // private closeFocusedHandler(e: Event) {
-  //   const target = e.target as HTMLElement;
-
-  //   if (target.closest(`#${this.focusedEl!.id}`)) {
-  //     this.attachListenerToBody();
-  //     return;
-  //   }
-
-  //   this.focusedEl!.remove();
-  //   this.focusedEl = undefined;
-  // }
 
   private sidebarClickHandler(e: Event) {
     let target = e.target as HTMLElement;

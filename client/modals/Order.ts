@@ -39,13 +39,17 @@ export default class OrderModal extends Modal {
         </div>
         <div class="order-info__group">
             <span class="order-info__group-title">Amount: </span>
-            <span class="order-info__group-detail">€${
-              order.product.price
-            } &times; ${order.amount}</span>
+            <span class="order-info__group-detail"> ${
+              order.amount === 0
+                ? 1
+                : `€${order.product.price} &times; ${order.amount}`
+            }</span>
         </div>
         <div class="order-info__group">
             <span class="order-info__group-title">Total: </span>
-            <span class="order-info__group-detail">€${order.totalPrice}</span>
+            <span class="order-info__group-detail">
+              ${order.totalPrice === 0 ? "FREE" : `€${order.totalPrice}`}
+            </span>
         </div>
         <div class="order-info__group">
             <span class="order-info__group-title">Buyer Email: </span>

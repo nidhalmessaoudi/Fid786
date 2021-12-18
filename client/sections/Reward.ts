@@ -34,55 +34,64 @@ export default class RewardSection extends Section {
   }
 
   private renderReward(data: [Reward]) {
-    console.log(data);
-
     const rewards = data.map((reward) => {
       console.log(reward);
 
       const date = formatDate(reward.createdAt);
       const availability = reward.product.availability;
       return `
-              <a 
-                href="/${reward.product.store.subUrl}/${reward.product._id}"
-                target="_blank" rel="noopener noreferrer"
-              >
-                <div 
-                 data-id="${reward._id}"
-                 data-type="REWARD"
-                 class="dashboard-section__card product-card"
-                >
-                    <div class="product-card__img">
-                        <img src="${reward.product.photos[0]}" />
-                    </div>
-                    <div class="product-card__info">
-                        <div class="product-card__top">
-                            <span class="product-card__title">${
-                              reward.product.name
-                            }</span>
-                            <span 
-                             class="product-card__${availability
-                               .toLowerCase()
-                               .replace(/\s/g, "-")}"
-                            >
-                             ${availability}
-                            </span>
-                        </div>
-                        <span class="product-card__store">${
-                          reward.product.store.name
-                        }</span>
-                        ·
-                        <span class="product-card__date">${date}</span>
-                        <div class="product-card__bottom">
-                            <span class="product-card__price">
-                                ${reward.requiredPoints} Points
-                            </span>
-                            <button class="btn btn-primary card-btn">Actions</button>
-                        </div>
-                    </div>
-                </div>
-              </a>
-          `;
+        <a 
+        href="/stores/${reward.product.store.subUrl}/${
+        reward.product._id
+      }?type=reward"
+        target="_blank" rel="noopener noreferrer"
+        >
+          <div 
+           data-id="${reward._id}"
+           data-type="REWARD"
+           class="dashboard-section__card product-card"
+          >
+              <div class="product-card__img">
+                  <img src="${reward.product.photos[0]}" />
+              </div>
+              <div class="product-card__info">
+                  <div class="product-card__top">
+                      <span class="product-card__title">${
+                        reward.product.name
+                      }</span>
+                      <span 
+                       class="product-card__${availability
+                         .toLowerCase()
+                         .replace(/\s/g, "-")}"
+                      >
+                       ${
+                         availability === "In Stock"
+                           ? `<i class="bi bi-check-lg"></i>`
+                           : `<i class="bi bi-exclamation-circle"></i>`
+                       }
+                       ${availability}
+                      </span>
+                  </div>
+                  <span class="product-card__store">${
+                    reward.product.store.name
+                  }</span>
+                  ·
+                  <span class="product-card__date">${date}</span>
+                  <div class="product-card__bottom">
+                      <span class="product-card__price">
+                          ${reward.requiredPoints} Points
+                      </span>
+                      <button class="btn btn-primary card-btn">Actions</button>
+                  </div>
+              </div>
+          </div>
+        </a>
+      `;
     });
+
+    for (let i = 0; i <= rewards.length % 3; i++) {
+      rewards.push(`<div></div>`);
+    }
 
     return rewards.join("");
   }

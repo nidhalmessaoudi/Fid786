@@ -39,7 +39,7 @@ export default class ProductSection extends Section {
       const availability = product.availability;
       return `
               <a 
-                href="/${product.store.subUrl}/${product._id}"
+                href="/stores/${product.store.subUrl}/${product._id}"
                 target="_blank" rel="noopener noreferrer"
               >
                 <div 
@@ -84,6 +84,10 @@ export default class ProductSection extends Section {
               </a>
           `;
     });
+
+    for (let i = 0; i <= products.length % 3; i++) {
+      products.push(`<div></div>`);
+    }
 
     return products.join("");
   }

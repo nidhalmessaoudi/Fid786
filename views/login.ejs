@@ -4,24 +4,37 @@
   <body>
     <%- include ("includes/navbar") %>
     <div class="main-container">
-      <% if (error) { %>
-      <p><%- error %></p>
-      <% } %>
-      <form action="/login" method="post">
-        <input
-          type="text"
-          name="username"
-          value="test"
-          placeholder="Username"
-        />
-        <input
-          type="password"
-          name="password"
-          value="hello@1234"
-          placeholder="Password"
-        />
-        <button type="submit">Submit</button>
-      </form>
+      <div class="sign-form__container">
+        <h1>Log In</h1>
+        <% if (error) { %>
+        <p><%- error %></p>
+        <% } %>
+        <form action="/login" method="POST">
+          <div class="form-control">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              value="test"
+              placeholder="Username"
+            />
+          </div>
+          <div class="form-control">
+            <label for="pwd">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="pwd"
+              value="hello@1234"
+              placeholder="Password"
+            />
+          </div>
+          <button class="btn btn-primary" type="submit">Log In</button>
+        </form>
+      </div>
+      <hr class="section-end" />
+      <%- include("includes/footer") %>
     </div>
   </body>
 </html>

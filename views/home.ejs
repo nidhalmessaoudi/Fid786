@@ -1,5 +1,91 @@
 <%- include ("includes/head") %>
   <body>
     <%- include ("includes/navbar") %>
+    <div class="main-container">
+      <section id="overview" class="overview-section">
+        <div class="overview-heading">
+          <h1>
+            Reward Your Loyal Customers with
+            <span class="overview-heading__highlight">Fid786</span>
+          </h1>
+        </div>
+        <div class="overview-img">
+          <img src="/images/Fid786Img.png" alt="Fid786">
+        </div>
+      </section>
+      <hr class="section-end">
+      <section id="about">
+        <div class="heading-title">
+          <h2>About FID786</h2>
+        </div>
+        <div class="about-content">
+          <p>
+            FID786 keeps your customers loyal by making them earn loyalty points which are accumulated after each order. Each earning of points is convertible into reward products. More points means more gains and importance. Valuing your customers by retaining them allows you to face the competition by targeting your customers and increasing their number.
+        </div>
+      </section>
+      <hr class="section-end">
+      <section id="services">
+        <div class="heading-title">
+          <h2>Services</h2>
+        </div>
+        <div class="services-container">
+          <div class="service">
+            <i class="bi bi-lightning-charge-fill"></i>
+            <span>Very fast to get started</span>
+          </div>
+          <div class="service">
+            <i class="bi bi-person-check-fill"></i>
+            <span>Build your account in seconds</span>
+          </div>
+          <div class="service">
+            <i class="bi bi-shop"></i>
+            <span>Free to build infinite stores</span>
+          </div>
+          <div class="service">
+            <i class="bi bi-bag-check-fill"></i>
+            <span>Each store has their own products</span>
+          </div>
+          <div class="service">
+            <i class="bi bi-award-fill"></i>
+            <span>Easy to use loyality system based in points for each store</span>
+          </div>
+          <div class="service">
+            <i class="bi bi-toggles2"></i>
+            <span>Everything is controlled by an intelligent dashboard</span>
+          </div>
+        </div>
+      </section>
+      <hr class="section-end">
+      <section id="contact">
+        <div class="heading-title">
+          <h2>Contact</h2>
+        </div>
+        <div class="contact-form__container">
+          <form class="contact-form" id="contactForm">
+            <div class="form-control">
+              <label for="contactName">Name *</label>
+              <input type="text" placeholder="Your Name" id="contactName">
+            </div>
+            <div class="form-control">
+              <label for="contactEmail">Email *</label>
+              <input type="text" placeholder="Your Email" id="contactEmail">
+            </div>
+            <div class="form-control">
+              <label for="contactSubject">Subject</label>
+              <input type="text" placeholder="Your Subject" id="contactSubject">
+            </div>
+            <div class="form-control">
+              <label for="contactMessage">Message *</label>
+              <textarea type="text" rows="8" placeholder="Your Message" id="contactMessage"></textarea>
+            </div>
+            <div class="contact-btn__container">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </section>
+      <hr class="section-end">
+      <%- include("includes/footer") %>
+    </div>
   </body>
 </html>

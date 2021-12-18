@@ -137,3 +137,23 @@ exports.deleteOne = async function (req, res, model) {
     }
   }
 };
+
+exports.checkOwnership = async function (req, res, next, model) {
+  try {
+    const doc = await model.findById(req.params.id);
+    const creator = doc.owner || doc.seller;
+
+    if (creator._id !== req.user._id) {
+      return res.status(403).json({
+        status: "fail",
+        message: "Unauthorized action",
+      });
+    }
+    next();
+  } catch (err) {
+    return res.status(400).json({
+      status: "fail",
+      message: "Something went wrong",
+    });
+  }
+};

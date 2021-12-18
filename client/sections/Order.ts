@@ -53,7 +53,9 @@ export default class OrderSection extends Section {
                     ·
                     <span>${orderDate}</span>
                 </div>
-                <span>€${order.totalPrice}</span>
+                <span>${
+                  order.totalPrice > 0 ? `€${order.totalPrice}` : "FREE"
+                }</span>
                 <span>${order.product.deliveryTime} Days Delivery</span>
                 <span class="order-card__${order.state}">${order.state}</span>
             </div>

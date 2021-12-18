@@ -18,6 +18,8 @@ const userRoutes = require("./routes/server/userRoutes");
 const dashboardRoutes = require("./routes/server/dashboardRoutes");
 const serverStoreRoutes = require("./routes/server/storeRoutes");
 const serverProductRoutes = require("./routes/server/productRoutes");
+const serverOrderRoutes = require("./routes/server/orderRoutes");
+const fidelityRoutes = require("./routes/server/fidelityRoutes");
 
 // API ROUTES
 const overviewRoutes = require("./routes/api/overviewRoutes");
@@ -78,6 +80,8 @@ app.use(userRoutes);
 app.use(dashboardRoutes);
 app.use("/stores", serverStoreRoutes);
 app.use("/stores", serverProductRoutes);
+app.use("/orders", serverOrderRoutes);
+app.use("/fidelity", fidelityRoutes);
 
 // API
 app.use("/api/v1/overview", overviewRoutes);

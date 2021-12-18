@@ -60,7 +60,7 @@ export default class StoreModal extends Modal {
           <div class="form-control">
               <label>Store Url *</label>
               <div class="input-group">
-                  <input type="text" class="inline-first" value="https://fid786.com/" required disabled>
+                  <input type="text" class="inline-first" value="https://fid786.com/stores/" required disabled>
                   <input type="text" name="path" value="${
                     pathValue || ""
                   }" class="inline-second" placeholder="Put the path here...">

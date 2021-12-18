@@ -1,0 +1,35 @@
+<%- include ("includes/head") %>
+  <body>
+    <%- include ("includes/navbar") %>
+    <div class="main-container">
+        <h1 class="order-title">My Orders:</h1>
+        <span class="orders-count">
+            (<%= orders.length %> <%= orders.length > 1 ? "Orders" : "Order" %>)
+        </span>
+        <div class="order-cards">
+            <% orders.forEach((order) => { %>
+                <div class="order-card" data-id="<%= order._id %>">
+                    <div>
+                        <i class="bi bi-shop"></i>
+                        <span><%= order.product.store.name %></span>
+                    </div>
+                    <div>
+                        <span><%= order.product.name %></span>
+                        ·
+                        <span><%= order.date %></span>
+                    </div>
+                    <% if (order.totalPrice === 0) { %>
+                        <span>FREE</span>
+                    <% } else { %>
+                        <span>€<%= order.totalPrice %></span>
+                    <% } %>  
+                    <span><%= order.product.deliveryTime %> Days Delivery</span>
+                    <span class="order-card__<%= order.state %>"><%= order.state %></span>
+                </div>
+            <% }); %>
+        </div>
+        <hr class="section-end">
+        <%- include("includes/footer") %>
+    </div>
+  </body>
+</html>

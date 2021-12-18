@@ -15,6 +15,13 @@ export default class Main {
       return;
     }
 
+    if (location.pathname === "/") {
+      document
+        .getElementById("contactForm")
+        ?.addEventListener("submit", this.contactSubmitHandler.bind(this));
+      return;
+    }
+
     document
       .getElementById("productImgs")
       ?.addEventListener("click", this.changeActiveImgHandler.bind(this));
@@ -91,10 +98,50 @@ export default class Main {
     const target = e.target as HTMLFormElement;
 
     const productId = target.dataset?.id;
+    const orderType = target.dataset?.type;
+    const loggedIn = Boolean(target.dataset?.loggedIn);
     const quantityInput = target?.querySelector(
       "input[id='orderAmount']"
     ) as HTMLInputElement;
 
-    new OrderProductModal(productId!, +quantityInput.value.trim());
+    if (!loggedIn) {
+      location.href = "/login";
+      return;
+    }
+
+    new OrderProductModal(
+      orderType!,
+      productId!,
+      +quantityInput?.value.trim() || 1
+    );
+  }
+
+  private contactSubmitHandler(e: Event) {
+    e.preventDefault();
+
+    const contactName = document.getElementById(
+      "contactName"
+    ) as HTMLInputElement;
+    const contactEmail = document.getElementById(
+      "contactEmail"
+    ) as HTMLInputElement;
+    const contactSubject = document.getElementById(
+      "contactSubject"
+    ) as HTMLInputElement;
+    const contactMessage = document.getElementById(
+      "contactMessage"
+    ) as HTMLInputElement;
+
+    const email = contactEmail.value;
+    const subject = contactSubject.value;
+    const body = contactMessage.value;
+
+    const url = `mailto:gafouri@gmail.com?bcc=${email}&subject=${subject}&body=${body}`;
+    window.open(url);
+
+    contactName.value = "";
+    contactEmail.value = "";
+    contactSubject.value = "";
+    contactMessage.value = "";
   }
 }

@@ -1,17 +1,19 @@
 const router = require("express").Router();
 
-const { apiCheckIfAuthenticated } = require("../../controllers/authController");
 const storeController = require("../../controllers/storeController");
+const { apiCheckIfAuthenticated } = require("../../controllers/authController");
+
+router.use(apiCheckIfAuthenticated);
 
 router
   .route("/")
   .get(storeController.getStores)
-  .post(apiCheckIfAuthenticated, storeController.createStore);
+  .post(storeController.createStore);
 
 router
   .route("/:id")
   .get(storeController.getStore)
-  .patch(apiCheckIfAuthenticated, storeController.updateStore)
-  .delete(apiCheckIfAuthenticated, storeController.deleteStore);
+  .patch(storeController.checkOwnership, storeController.updateStore)
+  .delete(storeController.checkOwnership, storeController.deleteStore);
 
 module.exports = router;

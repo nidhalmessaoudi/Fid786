@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const mongoosePaginate = require("mongoose-paginate-v2");
 
+const Fidelity = require("./Fidelity");
+
 const orderSchema = new mongoose.Schema(
   {
     product: {
@@ -45,6 +47,31 @@ const orderSchema = new mongoose.Schema(
 
 orderSchema.pre(/^find/, function (next) {
   this.populate("product buyer seller");
+  next();
+});
+
+orderSchema.post("findOneAndUpdate", async function (doc, next) {
+  console.log("Bonjour");
+  if (!doc.product.fidPoints && doc.state !== "delivered") {
+    return next();
+  }
+
+  const existingFidelity = await Fidelity.findOne({
+    store: doc.product.store._id,
+    owner: doc.buyer._id,
+  });
+
+  if (!existingFidelity) {
+    await Fidelity.create({
+      store: doc.product.store._id,
+      owner: doc.buyer._id,
+      points: doc.product.fidPoints,
+    });
+  } else {
+    existingFidelity.points = existingFidelity.points + doc.product.fidPoints;
+    await existingFidelity.save();
+  }
+
   next();
 });
 

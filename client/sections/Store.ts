@@ -42,7 +42,7 @@ export default class StoreSection extends Section {
       const date = formatDate(store.createdAt);
 
       return `
-            <a href="/${store.subUrl}" target="_blank" rel="noopener noreferrer">
+            <a href="/stores/${store.subUrl}" target="_blank" rel="noopener noreferrer">
               <div data-id="${store._id}" data-type="STORE" class="dashboard-section__card store-card">
                   <div class="store-card__top">
                       <div class="store-card__info">
@@ -62,6 +62,10 @@ export default class StoreSection extends Section {
             </a>
         `;
     });
+
+    for (let i = 0; i <= stores.length % 3; i++) {
+      stores.push(`<div></div>`);
+    }
 
     return stores.join("");
   }

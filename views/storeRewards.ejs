@@ -1,0 +1,78 @@
+<%- include ("includes/head") %>
+  <body>
+    <%- include ("includes/navbar") %>
+    <div class="main-container">
+        <div class="store-top">
+            <div class="store-top__img">
+                <img src="<%= store.logo %>" alt="<%= store.name %>">
+            </div>
+            <div>
+                <h1 class="store-top__title"><%= store.name %></h1>
+                <div class="store-top__overview">
+                    <i class="bi bi-geo-alt"></i>
+                    <em><%=  store.location %></em>
+                    ·
+                    <em>
+                        (<%= rewards.totalDocs %>
+                        <%= rewards.totalDocs <= 1 ? "Reward" : "Rewards" %>)
+                    </em>
+                </div>
+            </div>
+        </div>
+        <div class="reward-cards">
+            <% rewards.docs.forEach((reward) => { %>
+                <a 
+                href="/stores/<%= store.subUrl %>/<%= reward.product._id %>?type=reward"
+                target="_blank" rel="noopener noreferrer"
+                >
+                    <div 
+                        data-id="<%= reward._id %>"
+                        data-type="REWARD"
+                        class="reward-card"
+                    >
+                        <div class="reward-card__img">
+                            <img src="<%= reward.product.photos[0] %>" />
+                        </div>
+                        <div class="reward-card__info">
+                            <div class="reward-card__top">
+                                <span class="reward-card__title"><%= reward.product.name %></span>
+                                <span 
+                                class="reward-card__<%= reward.product.availability.toLowerCase().replace(/\s/g, "-") %>"
+                                >
+                                <% if (reward.product.availability === "In Stock") { %>
+                                    <i class="bi bi-check-lg"></i>
+                                <% } else { %>
+                                    <i class="bi bi-exclamation-circle"></i>
+                                <% } %>
+                                <%= reward.product.availability %>
+                                </span>
+                            </div>
+                            <span class="reward-card__store"><%= store.name %></span>
+                            ·
+                            <span class="reward-card__date"><%= reward.date %></span>
+                            <div class="reward-card__bottom">
+                                <span class="reward-card__points"><%= reward.requiredPoints %> Required Points</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            <% }); %>
+            <% for( let i = 0; i <= (rewards.docs.length % 4); i++ ) { %>
+                <div></div>
+            <% } %>
+        </div>
+        <div class="store-nav">
+            <div class="store-nav__btns">
+                <% for( let i = 1; i <= rewards.totalPages; i++ ) { %>
+                    <a href="/stores/<%= store.subUrl %>?p=<%= i %>">
+                        <button 
+                        class="btn nav-btn <%= i === rewards.page ? "nav-btn__active" : ""%>"
+                        ><%= i %></button>
+                    </a>
+                <% } %>
+            </div>
+            <em class="store-nav__info">Displaying <%= rewards.limit %> per page</em>
+        </div>
+    </div>
+  </body>
+</html>

@@ -29,7 +29,11 @@
             </div>
             <div class="product-action">
                 <div class="product-price__container">
-                    <p class="product-price">€<%= product.price %></p>
+                    <% if (type === "FREE") { %>
+                        <p class="product-price">FREE</p>
+                    <% } else { %>
+                        <p class="product-price">€<%= product.price %></p>
+                    <% } %>
                     <span 
                     class="product__<%= product.availability.toLowerCase().replace(/\s/g, "-") %>"
                     >
@@ -41,26 +45,43 @@
                         <%= product.availability %>
                     </span>
                 </div>
-                <% if (product.fidPoints) { %>                 
+                <% if (type === "FREE") { %>
                     <p class="product-fidelity">
-                        You will win
+                        You will loose
                         <span class="product-fidelity__highlight">
-                            <%= product.fidPoints %> fidelity points
+                            <%= reward.requiredPoints %> fidelity points
                         </span>
-                        when you buy this product!
+                        when you order this reward!
                         <a
-                        href="/fidpoints"
+                        href="/fidelity"
                         >
                             (Check your fid points)
                         </a>
                     </p>
+                <% } else { %>
+                    <% if (product.fidPoints) { %>              
+                        <p class="product-fidelity">
+                            You will win
+                            <span class="product-fidelity__highlight">
+                                <%= product.fidPoints %> fidelity points
+                            </span>
+                            when you buy this product!
+                            <a
+                            href="/fidelity"
+                            >
+                                (Check your fid points)
+                            </a>
+                        </p>
+                    <% } %>
                 <% } %>
                 <div class="product-order__container">
-                    <form id="orderProduct" data-id="<%= product._id %>">
-                        <div class="form-control form-control__mini">
-                            <label for="orderAmount">Qty:</label>
-                            <input id="orderAmount" type="number" min="1" value="1" required>
-                        </div>
+                    <form id="orderProduct" data-id="<%= product._id %>" data-type="<%= type %>" data-loggedIn="<%= user ? "true" : "false" %>">
+                        <% if (type === "PRICED") { %>
+                            <div class="form-control form-control__mini">
+                                <label for="orderAmount">Qty:</label>
+                                <input id="orderAmount" type="number" min="1" value="1" required>
+                            </div>
+                        <% } %>
                         <button
                         type="submit"
                         class="btn btn-primary product-order__btn"
@@ -114,9 +135,14 @@
                             </div>
                         </a>
                     <% }) %>
+                    <% for( let i = 0; i <= (otherProducts.length % 4); i++ ) { %>
+                        <div></div>
+                    <% } %>
                 </div>
             </div>
         <% } %>
+        <hr class="section-end">
+        <%- include("includes/footer") %>
     </div>
   </body>
 </html>

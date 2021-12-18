@@ -1,0 +1,34 @@
+<%- include ("includes/head") %>
+  <body>
+    <%- include ("includes/navbar") %>
+    <div class="main-container">
+        <h1 class="fidelity-title">My Fidelities:</h1>
+        <span class="fidelities-count">
+            (<%= fidelities.length %> <%= fidelities.length > 1 ? "Fidelities" : "Fidelity" %>)
+        </span>
+        <div class="fidelity-cards">
+            <% fidelities.forEach((fidelity) => { %>
+                <a href="/stores/<%= fidelity.store.subUrl %>?filter=rewards">
+                    <div class="fidelity-card" data-id="<%= fidelity._id %>">
+                        <div>
+                            <i class="bi bi-shop"></i>
+                            <span><%= fidelity.store.name %></span>
+                        </div>
+                        <div>
+                            <i class="bi bi-geo-alt"></i>
+                            <span><%= fidelity.store.location %></span>
+                            ·
+                            <span>
+                                Last Updated At: <%= fidelity.updateDate %>
+                            </span>
+                        </div>
+                        <span class="fidelity-card__points"><%= fidelity.points %> Points</span>
+                    </div>
+                </a>
+            <% }); %>
+        </div>
+        <hr class="section-end">
+        <%- include("includes/footer") %>
+    </div>
+  </body>
+</html>
