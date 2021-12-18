@@ -75,7 +75,7 @@
                     <% } %>
                 <% } %>
                 <div class="product-order__container">
-                    <form id="orderProduct" data-id="<%= product._id %>" data-type="<%= type %>" data-loggedIn="<%= user ? "true" : "false" %>">
+                    <form id="orderProduct" data-id="<%= product._id %>" data-type="<%= type %>" data-loggedin="<%= user ? "true" : "false" %>">
                         <% if (type === "PRICED") { %>
                             <div class="form-control form-control__mini">
                                 <label for="orderAmount">Qty:</label>

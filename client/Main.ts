@@ -99,7 +99,7 @@ export default class Main {
 
     const productId = target.dataset?.id;
     const orderType = target.dataset?.type;
-    const loggedIn = Boolean(target.dataset?.loggedIn);
+    const loggedIn = target.dataset?.loggedin === "true" ? true : false;
     const quantityInput = target?.querySelector(
       "input[id='orderAmount']"
     ) as HTMLInputElement;
