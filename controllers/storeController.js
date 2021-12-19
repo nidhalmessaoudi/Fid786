@@ -34,7 +34,7 @@ exports.getOne = async function (req, res, next) {
     let products;
     const productsOptions = {
       page: req.query.p || 1,
-      limit: 8,
+      limit: 6,
       sort: { createdAt: -1 },
     };
 

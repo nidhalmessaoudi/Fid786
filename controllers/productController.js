@@ -76,7 +76,7 @@ exports.getOne = async function (req, res, next) {
 
     const otherProducts = await Product.paginate(
       { _id: { $ne: product._id }, store: product.store },
-      { page: 1, limit: 4, sort: { createdAt: -1 } }
+      { page: 1, limit: 6, sort: { createdAt: -1 } }
     );
 
     otherProducts.docs.forEach((doc) => {
