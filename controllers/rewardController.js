@@ -38,7 +38,7 @@ exports.checkProductOwnership = async function (req, res, next) {
         message: "Unauthorized action",
       });
     }
-    next();
+    return next();
   } catch (err) {
     return res.status(400).json({
       status: "fail",

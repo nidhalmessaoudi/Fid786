@@ -10,7 +10,7 @@ export default class Section {
   `;
   protected cardsContainer!: HTMLDivElement;
 
-  constructor(private type: TypeSection) {
+  constructor(private type: TypeSection, private reloadFn?: Function) {
     this.sectionContainer = document.getElementById(
       "dashboardContent"
     ) as HTMLDivElement;
@@ -39,13 +39,13 @@ export default class Section {
   private renderModalHandler() {
     switch (this.type) {
       case "STORE":
-        new StoreModal();
+        new StoreModal(this.reloadFn!);
         break;
       case "PRODUCT":
-        new ProductModal();
+        new ProductModal(this.reloadFn!);
         break;
       case "REWARD":
-        new RewardModal();
+        new RewardModal(this.reloadFn!);
         break;
     }
   }
@@ -63,13 +63,13 @@ export default class Section {
 
     switch (card?.dataset.type) {
       case "STORE":
-        new StoreModal(card?.dataset.id);
+        new StoreModal(this.reloadFn!, card?.dataset.id);
         break;
       case "PRODUCT":
-        new ProductModal(card?.dataset.id);
+        new ProductModal(this.reloadFn!, card?.dataset.id);
         break;
       case "REWARD":
-        new RewardModal(card?.dataset.id);
+        new RewardModal(this.reloadFn!, card?.dataset.id);
         break;
     }
   }

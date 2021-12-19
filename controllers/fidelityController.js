@@ -3,7 +3,9 @@ const formatDate = require("../helpers/formatDate");
 
 exports.getUserFidelities = async function (req, res) {
   try {
-    const fidelities = await Fidelity.find({ owner: req.user._id });
+    const fidelities = await Fidelity.find({ owner: req.user._id }).sort({
+      createdAt: -1,
+    });
 
     fidelities.forEach((doc) => {
       doc.date = formatDate(doc.createdAt);

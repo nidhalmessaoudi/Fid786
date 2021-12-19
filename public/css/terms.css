@@ -1,0 +1,25 @@
+h1 {
+  margin-bottom: 2rem;
+}
+
+h2 {
+  margin: 1rem 0;
+}
+
+h2:first-child {
+  margin: 0;
+}
+
+p,
+.terms-list {
+  color: rgba(0, 0, 0, 0.7);
+  line-height: 1.5;
+}
+
+.footer p:last-child {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.terms-list {
+  margin: 1rem 0 1rem 3rem;
+}

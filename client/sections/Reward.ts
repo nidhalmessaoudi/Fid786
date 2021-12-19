@@ -6,7 +6,7 @@ import formatDate from "../helpers/formatDate";
 
 export default class RewardSection extends Section {
   constructor() {
-    super("REWARD");
+    super("REWARD", () => new RewardSection());
 
     axios({
       url: "/api/v1/rewards",
@@ -35,8 +35,6 @@ export default class RewardSection extends Section {
 
   private renderReward(data: [Reward]) {
     const rewards = data.map((reward) => {
-      console.log(reward);
-
       const date = formatDate(reward.createdAt);
       const availability = reward.product.availability;
       return `
@@ -78,7 +76,7 @@ export default class RewardSection extends Section {
                   ·
                   <span class="product-card__date">${date}</span>
                   <div class="product-card__bottom">
-                      <span class="product-card__price">
+                      <span class="product-card__points">
                           ${reward.requiredPoints} Points
                       </span>
                       <button class="btn btn-primary card-btn">Actions</button>
@@ -90,7 +88,7 @@ export default class RewardSection extends Section {
     });
 
     for (let i = 0; i <= rewards.length % 3; i++) {
-      rewards.push(`<div></div>`);
+      rewards.push(`<div class="wrapper"></div>`);
     }
 
     return rewards.join("");

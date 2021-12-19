@@ -69,6 +69,7 @@ export default class Dashboard {
     const sectionDataset = target.dataset.section as Section | "NULL";
 
     if (sectionDataset === "NULL") {
+      location.href = "/";
       return;
     }
 

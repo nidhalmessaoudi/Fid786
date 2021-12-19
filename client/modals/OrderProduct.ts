@@ -139,10 +139,9 @@ export default class OrderProductModal extends Modal {
         },
       });
 
-      this.closeHandler();
+      this.closeHandler(false);
       location.href = "/orders";
     } catch (err) {
-      console.log(err);
       this.closeHandler();
     }
   }

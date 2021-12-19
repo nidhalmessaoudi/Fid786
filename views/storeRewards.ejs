@@ -58,7 +58,7 @@
                 </a>
             <% }); %>
             <% for( let i = 0; i <= (rewards.docs.length % 4); i++ ) { %>
-                <div></div>
+                <div class="wrapper"></div>
             <% } %>
         </div>
         <div class="store-nav">
@@ -74,5 +74,6 @@
             <em class="store-nav__info">Displaying <%= rewards.limit %> per page</em>
         </div>
     </div>
+    <%- include("includes/footer") %>
   </body>
 </html>

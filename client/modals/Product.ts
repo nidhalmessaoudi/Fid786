@@ -9,8 +9,8 @@ export default class ProductModal extends Modal {
   private photoInputs!: HTMLDivElement;
   private photoNumber = 1;
 
-  constructor(productId?: string) {
-    super("New Product", productId ? "EDITABLE" : "CREATABLE");
+  constructor(reloadFn: Function, productId?: string) {
+    super("New Product", productId ? "EDITABLE" : "CREATABLE", reloadFn);
 
     this.load(productId)
       .then(() => {
@@ -275,7 +275,6 @@ export default class ProductModal extends Modal {
 
       this.closeHandler();
     } catch (err) {
-      console.log(err);
       this.closeHandler();
     }
   }

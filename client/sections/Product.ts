@@ -6,7 +6,7 @@ import formatDate from "../helpers/formatDate";
 
 export default class ProductSection extends Section {
   constructor() {
-    super("PRODUCT");
+    super("PRODUCT", () => new ProductSection());
 
     axios({
       url: "/api/v1/products",
@@ -86,7 +86,7 @@ export default class ProductSection extends Section {
     });
 
     for (let i = 0; i <= products.length % 3; i++) {
-      products.push(`<div></div>`);
+      products.push(`<div class="wrapper"></div>`);
     }
 
     return products.join("");

@@ -12,7 +12,7 @@ export default class Modal {
     </div>
   `;
   private loadingSpinner = `
-    <div class="loading-spinner__dashboard"><div class="loading-spinner"></div></div>
+    <div class="loading-spinner__modal"><div class="loading-spinner"></div></div>
   `;
 
   private overlay: HTMLElement;
@@ -25,8 +25,9 @@ export default class Modal {
   protected activeTimer = 0;
 
   constructor(
-    title: string,
-    protected type: "EDITABLE" | "CREATABLE" = "CREATABLE"
+    private title: string,
+    protected type: "EDITABLE" | "CREATABLE" = "CREATABLE",
+    private reloadFn?: Function
   ) {
     document.body.insertAdjacentHTML("afterbegin", this.overlayMarkup);
     document.body.insertAdjacentHTML("afterbegin", this.modalMarkup);
@@ -39,14 +40,21 @@ export default class Modal {
       ".modal-content"
     ) as HTMLElement;
 
-    this.modalTitle.textContent = title;
+    this.modalTitle.textContent = this.title;
     this.modalContentContainer.innerHTML = this.loadingSpinner;
 
-    this.modalClose.addEventListener("click", this.closeHandler.bind(this));
-    this.overlay.addEventListener("click", this.closeHandler.bind(this));
+    this.modalClose.addEventListener(
+      "click",
+      this.closeModalHandler.bind(this)
+    );
+    this.overlay.addEventListener("click", this.closeModalHandler.bind(this));
     document.addEventListener("keydown", this.keydownHandler.bind(this), {
       once: true,
     });
+  }
+
+  private closeModalHandler() {
+    this.closeHandler();
   }
 
   private keydownHandler(e: KeyboardEvent) {
@@ -65,9 +73,15 @@ export default class Modal {
     }
   }
 
-  protected closeHandler() {
+  protected closeHandler(reload = true) {
     this.modal.remove();
     this.overlay.remove();
+
+    if (!reload) return;
+
+    if (this.reloadFn) {
+      this.reloadFn();
+    }
   }
 
   protected createError(text: string) {
@@ -75,12 +89,6 @@ export default class Modal {
     errorEl.classList.add("form-error");
     errorEl.textContent = text;
     return errorEl;
-  }
-
-  protected removePrevError() {
-    if (this.renderedError) {
-      this.renderedError.remove();
-    }
   }
 
   private async deleteHandler(e: Event) {

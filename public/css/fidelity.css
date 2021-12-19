@@ -1,0 +1,17 @@
+.fidelity-title {
+  margin-bottom: 5px;
+}
+
+.fidelities-count {
+  color: rgba(0, 0, 0, 0.6);
+  font-style: italic;
+}
+
+.fidelity-card__points {
+  border-radius: 8px;
+  padding: 10px 15px;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+}

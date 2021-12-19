@@ -1,0 +1,12 @@
+.order-card {
+  cursor: auto;
+}
+
+.order-title {
+  margin-bottom: 5px;
+}
+
+.orders-count {
+  color: rgba(0, 0, 0, 0.6);
+  font-style: italic;
+}

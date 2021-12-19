@@ -1,13 +1,12 @@
-// import isAlphanumeric from "../helpers/isAlphanumeric";
-// import isImageUrl from "../helpers/isImageUrl";
 import axios from "axios";
+import validator from "validator";
 
 import Modal from "./Modal";
 import Store from "../types/Store";
 
 export default class StoreModal extends Modal {
-  constructor(storeId?: string) {
-    super("New Store", storeId ? "EDITABLE" : "CREATABLE");
+  constructor(reloadFn: Function, storeId?: string) {
+    super("New Store", storeId ? "EDITABLE" : "CREATABLE", reloadFn);
 
     this.load(storeId).then(() => {
       this.form = document.querySelector(".modal-form") as HTMLFormElement;
@@ -102,6 +101,10 @@ export default class StoreModal extends Modal {
         `button[type="submit"]`
       )! as HTMLButtonElement;
 
+      if (!this.validateForm(pathInput)) {
+        return;
+      }
+
       submitBtn.textContent = "Submitting";
       submitBtn.disabled = true;
 
@@ -132,23 +135,33 @@ export default class StoreModal extends Modal {
     });
   }
 
-  //   private validateForm(inputs: any) {
-  //     if (!isAlphanumeric(inputs.pathInput.value)) {
-  //         this.removePrevError();
-  //         this.renderedError = this.createError(
-  //           "The url path must be alphanumeric."
-  //         );
-  //         inputs.pathInput.parentElement?.parentElement?.appendChild(this.renderedError);
-  //         inputs.pathInput.style.borderColor = "red";
-  //         return;
-  //       }
+  private validateForm(pathInput: HTMLInputElement) {
+    if (this.renderedError) {
+      return false;
+    }
 
-  //       if (!isImageUrl(inputs.logoInput.value)) {
-  //         this.removePrevError();
-  //         this.renderedError = this.createError("Invalid logo url.");
-  //         inputs.logoInput.parentElement?.parentElement?.appendChild(this.renderedError);
-  //         inputs.logoInput.style.borderColor = "red";
-  //         return;
-  //       }
-  //   }
+    if (!validator.isAlphanumeric(pathInput.value)) {
+      this.renderedError = this.createError(
+        "The url path must be alphanumeric."
+      );
+      pathInput.parentElement?.parentElement?.appendChild(this.renderedError);
+
+      pathInput.addEventListener(
+        "focus",
+        this.pathInputFocusHandler.bind(this)
+      );
+      return false;
+    }
+
+    return true;
+  }
+
+  private pathInputFocusHandler() {
+    if (!this.renderedError) {
+      return;
+    }
+
+    this.renderedError.remove();
+    this.renderedError = undefined;
+  }
 }

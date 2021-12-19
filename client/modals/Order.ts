@@ -5,8 +5,8 @@ import Order from "../types/Order";
 import formatDate from "../helpers/formatDate";
 
 export default class OrderModal extends Modal {
-  constructor(orderId: string) {
-    super("New Order");
+  constructor(reloadFn: Function, orderId: string) {
+    super("New Order", "CREATABLE", reloadFn);
 
     this.load(orderId)
       .then(() => {
@@ -101,7 +101,7 @@ export default class OrderModal extends Modal {
       target.textContent = "Setting";
       target.disabled = true;
 
-      const res = await axios({
+      await axios({
         url: `/api/v1/orders/${target.dataset.id}`,
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -109,8 +109,6 @@ export default class OrderModal extends Modal {
           state: "delivered",
         },
       });
-
-      console.log(res);
 
       this.closeHandler();
     } catch (err) {

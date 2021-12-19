@@ -143,17 +143,24 @@ exports.checkOwnership = async function (req, res, next, model) {
     const doc = await model.findById(req.params.id);
     const creator = doc.owner || doc.seller;
 
-    if (creator._id !== req.user._id) {
+    if (!creator._id.equals(req.user._id)) {
       return res.status(403).json({
         status: "fail",
         message: "Unauthorized action",
       });
     }
-    next();
+    return next();
   } catch (err) {
-    return res.status(400).json({
-      status: "fail",
-      message: "Something went wrong",
-    });
+    if (err instanceof mongoose.Error) {
+      res.status(400).json({
+        status: "fail",
+        message: "Invalid document id",
+      });
+    } else {
+      res.status(500).json({
+        status: "error",
+        message: "Something went wrong",
+      });
+    }
   }
 };

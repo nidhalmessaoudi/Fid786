@@ -72,6 +72,6 @@ export default class OrderSection extends Section {
       return;
     }
 
-    new OrderModal(orderCard.dataset.id!);
+    new OrderModal(() => new OrderSection(), orderCard.dataset.id!);
   }
 }

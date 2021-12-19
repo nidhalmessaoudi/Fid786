@@ -36,7 +36,7 @@ exports.postRegister = async function (req, res, next) {
     if (err.name === "AuthError") {
       req.flash("error", err.message);
     }
-    res.redirect("/signup");
+    res.redirect("/register");
   }
 };
 

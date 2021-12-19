@@ -15,7 +15,7 @@ exports.attachSellerAndBuyer = async function (req, res, next) {
     const product = await Product.findById(productId);
     req.body.seller = product.owner._id;
     req.body.buyer = req.user._id;
-    next();
+    return next();
   } catch (err) {
     res.status(400).json({
       status: "fail",
@@ -27,12 +27,12 @@ exports.attachSellerAndBuyer = async function (req, res, next) {
 exports.checkForOrderType = async function (req, res, next) {
   try {
     if (req.query.type !== "free") {
-      next();
+      return next();
     }
 
     const reward = await Reward.findOne({ product: req.body.product });
     if (!reward) {
-      next();
+      return next();
     }
 
     const fidelity = await Fidelity.findOne({
@@ -42,9 +42,9 @@ exports.checkForOrderType = async function (req, res, next) {
     fidelity.points = fidelity.points - reward.requiredPoints;
 
     await fidelity.save();
-    next();
+    return next();
   } catch (err) {
-    next();
+    return next();
   }
 };
 
@@ -72,7 +72,9 @@ exports.deleteOrder = function (req, res) {
 // SERVER
 exports.getUserOrders = async function (req, res) {
   try {
-    const userOrders = await Order.find({ buyer: req.user._id });
+    const userOrders = await Order.find({ buyer: req.user._id }).sort({
+      createdAt: -1,
+    });
 
     userOrders.forEach((doc) => {
       doc.date = formatDate(doc.createdAt);

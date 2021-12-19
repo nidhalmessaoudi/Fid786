@@ -7,8 +7,8 @@ import Product from "../types/Product";
 export default class RewardModal extends Modal {
   private select!: HTMLSelectElement;
 
-  constructor(rewardId?: string) {
-    super("New Reward", rewardId ? "EDITABLE" : "CREATABLE");
+  constructor(reloadFn: Function, rewardId?: string) {
+    super("New Reward", rewardId ? "EDITABLE" : "CREATABLE", reloadFn);
 
     this.load(rewardId)
       .then(() => {
