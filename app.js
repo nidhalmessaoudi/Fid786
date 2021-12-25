@@ -30,6 +30,8 @@ const rewardRoutes = require("./routes/api/rewardRoutes");
 
 const app = express();
 
+app.enable("trust proxy");
+
 app.use(express.static(path.join(__dirname, "public")));
 
 app.set("view engine", "ejs");
@@ -56,7 +58,8 @@ app.use(
     saveUninitialized: true,
     cookie: {
       maxAge: process.env.SESSION_DAYS * 24 * 60 * 60 * 1000,
-      secure: process.env.MODE === "production" ? true : false,
+      secure: false,
+      httpOnly: true,
     },
   })
 );
